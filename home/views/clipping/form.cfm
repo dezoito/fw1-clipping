@@ -1,12 +1,16 @@
 <cfset rc.pagetitle = "Post an Article">
 
 <!---    default form values     --->
+
+<!-------------------------------------------------------------
 <cfparam name="rc.Clipping.clipping_id" default="">
 <cfparam name="rc.Clipping.clipping_titulo" default="">
 <cfparam name="rc.Clipping.clipping_texto" default="">
 <cfparam name="rc.Clipping.clipping_fonte" default="">
 <cfparam name="rc.Clipping.clipping_link" default="">
 <cfparam name="rc.Clipping.published" default="#now()#">
+--------------------------------------------------------------->
+
 
 
 <h3>Save an Article</h3>
@@ -15,7 +19,7 @@
 <cfif structKeyExists(rc, "errors")>
     <div class="alert alert-danger">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <b>Your article coult not be posted due to the following error(s):</b><br/>
+            <b>Your article could not be posted due to the following error(s):</b><br/>
             <ul>
             <cfloop index="e" array="#rc.errors#">
                 <cfoutput><li>#e#</li></cfoutput>
@@ -31,6 +35,9 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
 
 <cfoutput>
 <form action="#buildURL('clipping.post')#" method="post" role="form" class="form-horizontal">
+
+    <input type="hidden" name="clipping_id" id="clipping_id" value="#HtmlEditFormat(rc.Clipping.clipping_id)#">
+
     <div class="form-group">
         <label for="clipping_titulo" class="control-label col-sm-2">Title <span class="required">*</span></label>
         <div class="col-sm-9">

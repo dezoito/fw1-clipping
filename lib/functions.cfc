@@ -21,25 +21,27 @@ or
         application.stripHTML = stripHTML;
 
         /**
-         * copyPropertiesToRC
-         * description: copies to the Request Context structures
-         * all the properties that can be accessed through getter methods
+         * copyORMPropertiesToStruct
+         * description: copies to the target structure (usually RC)
+         * all the properties that can be accessed through getter methods of the Object
          * (this is useful when returning ORM querie values to the rc to fill a form)
          */
-        string function copyPropertiesToRC(obj, rc) output="true" returnType="struct" {
+        string function copyORMPropertiesToStruct(obj, rcStruct) output="true" returnType="struct" {
             for (key in obj) {
                 // only use getters (ie: getId, getName, etc...)
                 if(left(key, 3) == "get"){
-                    // extract propertie name and add it (and the value) to RC
+                    // extract property name and add or update it on the target struct
                     str_property = (mid(key,4,len(key)));
-                    if(!StructKeyExists(rc, str_property)){
-                        structInsert(rc,str_property,evaluate("obj." & key & "()"));
+                    if(!StructKeyExists(rcStruct, str_property)){
+                        structInsert(rcStruct,str_property,evaluate("obj." & key & "()"));
+                    } else {
+                        structUpdate(rcStruct,str_property,evaluate("obj." & key & "()"));
                     }
                 }
             }
-            return rc;
+            return rcStruct;
         }
-        application.copyPropertiesToRC = copyPropertiesToRC;
+        application.copyORMPropertiesToStruct = copyORMPropertiesToStruct;
 
     </cfscript>
 

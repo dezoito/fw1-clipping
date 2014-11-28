@@ -19,19 +19,24 @@ component accessors="true" {
      * either for a new one, or for an update
      */
     function form (struct rc){
-        // if we are updating, load form pre-populated
-        // if(isdefined("rc.clipping_id") && isValid("integer",rc.clipping_id)){
-        //     clipping = variables.clippingService.getClipping(rc.clipping_id)
-        //     // copies obj properties to rc (so we can fill forms)
-        //     application.copyPropertiesToRC(clipping, rc)
-        // }
-        // will render clipping.form view from here...
 
-        // ------------ better way -----------------------
-        param name="rc.clipping_id" default="0";
-        if(!StructKeyExists(rc, "Clipping")) rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);
-        // rc.Validator = variables.NewsService.getValidator(rc.Clipping);
-        // if(!StructKeyExists(rc, "result")) rc.result = rc.Validator.newResult();
+        // ------------ default values for forms ---------
+        // ------------ (namespaced with the propper class)
+        param name="rc.Clipping.clipping_id" default="0";
+        param name="rc.Clipping.clipping_titulo" default="Default Title";
+        param name="rc.Clipping.clipping_texto" default="";
+        param name="rc.Clipping.clipping_fonte" default="";
+        param name="rc.Clipping.clipping_link" default="";
+        param name="rc.Clipping.published" default="#now()#";
+
+        // if we are updating, load form pre-populated
+        if(isdefined("rc.clipping_id") && isValid("integer",rc.clipping_id)  && rc.clipping_id > 0){
+            rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);
+
+            // copies obj properties to rc (so we can fill forms)
+            application.copyORMPropertiesToStruct(rc.Clipping, rc);
+        }
+        // will render clipping.form view from here...
     }
 
     /**
@@ -40,6 +45,7 @@ component accessors="true" {
     function post( struct rc ) {
         rc.errors = [];
         fw.frameworkTrace( "<b>post Method on Clipping Controller</b>");
+
 
         // ------------ start validation ---------
         // for now we are handling validation in the controllers.
