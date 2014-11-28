@@ -20,12 +20,18 @@ component accessors="true" {
      */
     function form (struct rc){
         // if we are updating, load form pre-populated
-        if(isdefined("rc.clipping_id") && isValid("integer",rc.clipping_id)){
-            clipping = variables.clippingService.getClipping(rc.clipping_id)
-            // copies obj properties to rc (so we can fill forms)
-            application.copyPropertiesToRC(clipping, rc)
-        }
+        // if(isdefined("rc.clipping_id") && isValid("integer",rc.clipping_id)){
+        //     clipping = variables.clippingService.getClipping(rc.clipping_id)
+        //     // copies obj properties to rc (so we can fill forms)
+        //     application.copyPropertiesToRC(clipping, rc)
+        // }
         // will render clipping.form view from here...
+
+        // ------------ better way -----------------------
+        param name="rc.clipping_id" default="0";
+        if(!StructKeyExists(rc, "Clipping")) rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);
+        // rc.Validator = variables.NewsService.getValidator(rc.Clipping);
+        // if(!StructKeyExists(rc, "result")) rc.result = rc.Validator.newResult();
     }
 
     /**

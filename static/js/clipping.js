@@ -27,6 +27,11 @@ $(document).ready(function(){
   $("#divMenu").sticky({topSpacing:60});
 });
 
+// if we have date inputs, make them a datepicker
+$(document).ready(function(){
+  $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+});
+
 /**
  * cancel buttons that go back to referer
  *
