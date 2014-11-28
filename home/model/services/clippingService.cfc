@@ -3,15 +3,49 @@
  */
 component {
 
+    // returns a single instance
+    public any function validate(struct rc) {
+        rc.errors = [];
+
+        // ------------ start validation ---------
+        // for now we are handling validation in the controllers.
+        // later, we will move this to the model using validateThis()
+        // https://groups.google.com/forum/#!topic/framework-one/Hh-YcyCQcJA
+        if(!len(trim(rc.clipping_titulo))) {
+            arrayAppend(rc.errors, "You must include a title for your clipping.");
+        }
+
+        if(!len(trim(rc.clipping_texto))) {
+            arrayAppend(rc.errors, "You must include text for your clipping.");
+        }
+
+        if(len(trim(rc.clipping_link)) && !isValid("url", rc.clipping_link)) {
+            arrayAppend(rc.errors, "If you include a link, it has to be formatted. Ex: http://www.link.com.");
+        }
+
+        if(!len(trim(rc.published)) || !isValid("eurodate", trim(rc.published))) {
+            arrayAppend(rc.errors, "You must specify a valid publishing date.");
+        }
+        // we are saving the errors to rc.errors anyway
+        // return true if there are NONE
+        return !val(arrayLen(rc.errors));
+    }
+
     // insert or update clipping article
-    public any function post(struct rc) {
+    public any function save(struct rc) {
         transaction {
             // var thisUser = entityLoadByPk("user", user);
-            var c = entityNew("clipping");
-            c.setClipping_titulo(arguments.rc.clipping_titulo);
-            c.setClipping_texto(arguments.rc.clipping_texto);
-            c.setClipping_link(arguments.rc.clipping_link);
-            c.setClipping_fonte(arguments.rc.clipping_fonte);
+            //  INsert or Update?
+            if(val(arguments.rc.clipping_id)){
+                    var c = entityLoadByPk("Clipping", arguments.rc.clipping_id);
+                } else {
+                    var c = entityNew("clipping");
+                }
+
+            c.setClipping_titulo(trim(arguments.rc.clipping_titulo));
+            c.setClipping_texto(trim(arguments.rc.clipping_texto));
+            c.setClipping_link(trim(arguments.rc.clipping_link));
+            c.setClipping_fonte(trim(arguments.rc.clipping_fonte));
             c.setPublished(arguments.rc.Published);
             c.setCreated(Now());
             entitySave(c);

@@ -64,9 +64,9 @@
 <!-------------------------------------------------------------
            {% if user.is_authenticated %}
             <!-- <li class="navbar-text">Welcome, {{ user.username }}!</li> -->
-            <li><a href="{% url 'logout">Logout de <b>{{ user.username }}</b></a></li>
+            <li><a href="{% url 'logout'>Logout de <b>{{ user.username }}</b></a></li>
            {% else %}
-            <li><a href="{% url 'login">Login</a></li>
+            <li><a href="{% url 'login'>Login</a></li>
            {% endif %}
 --------------------------------------------------------------->
 
