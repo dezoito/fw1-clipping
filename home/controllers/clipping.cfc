@@ -57,4 +57,17 @@ component accessors="true" {
         // (in this case, to the main list)
         variables.fw.redirect("main.default");
     }
+
+    /**
+     * saves an article
+     * POST only!!!
+     */
+    function delete( struct rc ) {
+        variables.fw.frameworkTrace( "<b>Delete Method on Clipping Controller</b>");
+        if (cgi.request_Method=="post"){
+            // delete this objectusing the clippingService
+            rc.Clipping = variables.clippingService.delete(rc.clipping_id);
+        }
+        variables.fw.redirect("main.default");
+    }
 }

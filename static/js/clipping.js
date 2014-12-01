@@ -107,16 +107,16 @@ $(document).ready(function(){
  *  Gera confirms estilizados na exclusão de modelos
  *  e exemplares
  */
- $( "#btnExcluirExemplar, #btnExcluirModelo" ).click(function(){
+ $( ".action-needs-confirm" ).click(function(){
   swal({
-    title: "Tem certeza?",
-    text: "Essa ação não poderá ser desfeita!",
+    title: "Are you sure?",
+    text: "This action cannot be undone!",
     type: "warning",
     showCancelButton: true,
-    cancelButtonText: "Cancelar" ,
+    cancelButtonText: "Cancel" ,
     confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Excluir!" },
+    confirmButtonText: "Confirm" },
   function(){
-    document.getElementById("formExcluir").submit();
+    document.getElementById("form-delete").submit();
   });
 });

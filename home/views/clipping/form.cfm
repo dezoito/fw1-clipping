@@ -66,11 +66,19 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
         <div class="col-xs-offset-2 col-xs-10">
             <button type="submit" class="btn btn-primary">Save</button>
             <button type="button" class="btn go-back">Cancel</button>
+            <button type="button" class="btn btn-danger action-needs-confirm">Delete</button>
         </div>
     </div>
 
 
 </form>
+</cfoutput>
+
+<!---    form to delete clipping articles     --->
+<cfoutput>
+    <form action="#buildURL('clipping.delete')#" method="post" id="form-delete">
+        <input type="hidden" name="clipping_id" id="clipping_id" value="#HtmlEditFormat(rc.Clipping.getClipping_id())#">
+    </form>
 </cfoutput>
 
 <!---    use WYSIWYG editor instead of textarea     --->

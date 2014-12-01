@@ -3,6 +3,7 @@
  */
 component {
 
+
     /**
      * validates formfields before saving object
      * @param   struct rc
@@ -68,6 +69,20 @@ component {
         return entityLoadByPk("clipping", arguments.clipping_id);
     }
 
+    /**
+     * deletes a single instance
+     */
+    public any function delete(numeric clipping_id) {
+            // Clipping = entityLoadByPk("clipping", arguments.clipping_id);
+            // EntityDelete(Clipping);
+
+            // entityDelete wasn't working at all
+            // delete by using HQL and parameters
+            hql = "delete from clipping where clipping_id = ?";
+            queryParameters = [arguments.clipping_id];
+            var r = ormExecuteQuery(hql, queryParameters);
+            return true;
+    }
 
     /**
      * returns an array of Clipping instances

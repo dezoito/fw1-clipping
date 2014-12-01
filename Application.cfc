@@ -12,8 +12,8 @@ component extends="org.corfield.framework" {
         // cfclocation="./model/beans",
         dbcreate="update",       // update database tables only
         dialect="MySQL",         // assume MySql, other dialects available http://help.adobe.com/en_US/ColdFusion/9.0/Developing/WSED380324-6CBE-47cb-9E5E-26B66ACA9E81.html
-        // eventhandling="true",
-        // eventhandler="root.model.beans.eventhandler",
+        eventhandling="False",
+        eventhandler="root.home.model.beans.eventhandler",
         logsql="true",
         flushAtRequestEnd = false
     };
