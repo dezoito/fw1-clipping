@@ -21,19 +21,25 @@ component accessors="true" {
     function form (struct rc){
         // ------------ default values for forms ---------
         param name="rc.clipping_id" default="0";
-        param name="rc.clipping_titulo" default="";
-        param name="rc.clipping_texto" default="";
-        param name="rc.clipping_fonte" default="";
-        param name="rc.clipping_link" default="";
-        param name="rc.published" default="#now()#";
+        // param name="rc.clipping_titulo" default="";
+        // param name="rc.clipping_texto" default="";
+        // param name="rc.clipping_fonte" default="";
+        // param name="rc.clipping_link" default="";
+        // param name="rc.published" default="#now()#";
 
         // if we are updating, load form pre-populated
-        if(isdefined("rc.clipping_id") && isValid("integer",rc.clipping_id)  && rc.clipping_id > 0){
-            Clipping = variables.clippingService.getClipping(rc.clipping_id);
+        // if(isdefined("rc.clipping_id") && isValid("integer",rc.clipping_id)  && rc.clipping_id > 0){
+        //     Clipping = variables.clippingService.getClipping(rc.clipping_id);
 
-            // copies obj properties to rc (so we can fill forms)
-            application.copyORMPropertiesToStruct(Clipping, rc);
-        }
+        //     // copies obj properties to rc (so we can fill forms)
+        //     application.copyORMPropertiesToStruct(Clipping, rc);
+        // }
+        if(isValid("integer",rc.clipping_id) && val(rc.clipping_id)) {
+                rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);
+            } else {
+                rc.Clipping = entityNew("clipping");
+                // update rc.Clipping with defaults here???
+            }
         // will render clipping.form view from here...
     }
 
