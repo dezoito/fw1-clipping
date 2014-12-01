@@ -15,12 +15,6 @@ component accessors="true" {
         return this;
     }
 
-    /**
-     * happens before anything
-     */
-    // function before( struct rc ){
-    //     session.time_before_ran_at = now();
-    // }
 
     /**
      * action = main or action = main.default

@@ -2,8 +2,7 @@
 
 <h3>Save an Article</h3>
 
-<!---    TO DO: bootstrap message classes     --->
-<cfif structKeyExists(rc, "errors")>
+<cfif structKeyExists(rc, "errors") and (arrayLen(rc.errors) gt 0)>
     <div class="alert alert-danger">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
             <b>Your article could not be posted due to the following error(s):</b><br/>

@@ -3,7 +3,11 @@
  */
 component {
 
-    // returns a single instance
+    /**
+     * validates formfields before saving object
+     * @param   struct rc
+     * @return boolean
+     */
     public any function validate(struct rc) {
         rc.errors = [];
 
@@ -31,7 +35,10 @@ component {
         return !val(arrayLen(rc.errors));
     }
 
-    // insert or update clipping article
+
+    /**
+     * insert or update clipping article
+     */
     public any function save(struct rc) {
         transaction {
             // var thisUser = entityLoadByPk("user", user);
@@ -54,12 +61,17 @@ component {
         return c;
     }
 
-    // returns a single instance
+    /**
+     * returns a single instance
+     */
     public any function getClipping(numeric clipping_id) {
         return entityLoadByPk("clipping", arguments.clipping_id);
     }
 
-    // returns a struct
+
+    /**
+     * returns an array of Clipping instances
+     */
     public any function list(numeric start=1, numeric perpage=10) {
         var result = {};
         var hql = "from clipping order by clipping_id desc";
@@ -73,7 +85,9 @@ component {
         return result;
     }
 
-    // returns all clippings through SQL
+    /**
+     * returns all clippings through SQL
+     */
     function getAll() {
         var qry="";
         qry = new Query(datasource="#application.datasource#",

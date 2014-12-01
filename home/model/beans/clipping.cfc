@@ -21,4 +21,13 @@ component persistent="true" table="tbl_clipping" accessors="true" {
     //     return arrayLen(r) is 1;
     // }
 
+    /**
+     * initialize this object, setting defaults if needed
+     */
+    public function init() {
+        if (IsNull(variables.Published)) {
+            this.setPublished(Now());
+        }
+        return this;
+    }
 }
