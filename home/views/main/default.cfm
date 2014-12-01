@@ -8,9 +8,9 @@
     <cfif rc.qry_clipping.count gt 0>
         <cfloop index="Clipping" array="#rc.qry_clipping.data#">
             <p>
-            <b><a href="#buildURL(action = 'clipping.form', queryString = 'clipping_id=' & Clipping.getClipping_Id())#">#Clipping.getClipping_titulo()#</a></b>
+            <b><a href="#buildURL(action = 'clipping.form', queryString = 'clipping_id=' & Clipping.getClipping_Id())#">#application.prepara_string(Clipping.getClipping_titulo())#</a></b>
             <br/>
-                #application.stripHTML(Clipping.getClipping_texto())#
+                #application.abrevia_string(application.stripHTML(Clipping.getClipping_texto()), 200)#
             <br/>
 
                 #dateFormat(Clipping.getCreated(), "mmmm d, yyyy")# at #timeFormat(Clipping.getCreated(), "h:mm tt")#

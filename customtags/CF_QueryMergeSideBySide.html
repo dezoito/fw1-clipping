@@ -1,0 +1,79 @@
+<H2>&lt;CF_QueryMergeSideBySide&gt;</H2>
+
+See also CF_QueryUnion.
+This tag takes two query result sets and creates a new query that contains
+data from both queries.  The new query has all the columns from the first query,
+plus all the columns from the second query.  Whatever was in row one of each
+query will be in the first row of the new query, and so on.  Please note that this tag makes no attempt to "sync up" or "join" the rows
+intelligenty.  It just copies data.  It is your responsibility to ensure that the first row of the first query
+corresponds with the first row of the second query.
+
+<P>The new query will have the same number of rows as the first query.  This means that if the first query has
+more rows than the second, the "extra" rows will be unpopulated (blank) in the new query.
+If, on the other hand, the second query has more rows than the first, the "extra" rows
+will be ignored.  Columns with the same name in both queries are assumed to hold data in common and are
+included in the new query only once.
+
+
+
+
+<P><B>Parameters</B><BR>
+
+<TABLE BORDER>
+  <TR VALIGN="TOP"><TD>QUERY1</TD>
+    <TD>
+		  Required.  The first query.  All the columns and rows from this query will appear in the new query.
+		</TD>
+	</TR>
+
+  <TR VALIGN="TOP"><TD>QUERY2</TD>
+    <TD>
+		  Required.  The second query.  The columns from this query will appear in the new
+			query, to the right of the columns from the first query.  A column name that already
+			appears in the new query because a column with that name was in QUERY1 will not be included.
+		</TD>
+	</TR>
+
+  <TR VALIGN="TOP"><TD>NAME</TD>
+    <TD>
+		  Required.  A name for the new query.  This name can then be used as the QUERY parameter
+			of a CFOUTPUT tag, etc.
+		</TD>
+	</TR>
+
+</TABLE>
+
+<P><B>Example</B><BR>
+
+The following example runs two queries, then merges them together side-by-side.
+The CFX_SHOWQUERY tag is then used to demonstrate the "before and after", but it's certainly
+not required.  The actual example is pretty pointless (why not just SELECT * in the first query
+and be done with it?), but it demonstrates what the tag does.
+
+<XMP>
+<CFQUERY NAME="SomeQuery" DATASOURCE="A2Z">
+  SELECT CustomerID, Company
+  FROM Customers
+</CFQUERY>
+
+<CFQUERY NAME="SomeOtherQuery" DATASOURCE="A2Z">
+  SELECT CustomerID, FirstName, LastName
+  FROM Customers
+</CFQUERY>
+
+<CF_QueryMergeSideBySide
+  QUERY1="SomeQuery"
+  QUERY2="SomeOtherQuery"
+  NAME="MyNewQuery">
+
+<CFX_ShowQuery Query="Q1">
+<CFX_ShowQuery Query="Q2">
+<CFX_ShowQuery Query="MyNewQuery">
+</XMP>
+
+<P>The above code might produce something like the following output:<BR>
+
+<TABLE  ><TR><TH><FONT SIZE=-1>BOOKID </TH><TH><FONT SIZE=-1>ORDERID </TH><TH><FONT SIZE=-1>CUSTOMERID </TH><TH><FONT SIZE=-1>ORDERDATE </TH></TR><TR><TD><FONT SIZE=-1>4</TD><TD><FONT SIZE=-1>2</TD><TD><FONT SIZE=-1>1</TD><TD><FONT SIZE=-1>1997-03-15 00:00:00</TD></TR><TR><TD><FONT SIZE=-1>4</TD><TD><FONT SIZE=-1>3</TD><TD><FONT SIZE=-1>2</TD><TD><FONT SIZE=-1>1997-02-18 15:15:00</TD></TR></TABLE>
+<TABLE  ><TR><TH><FONT SIZE=-1>BOOKID </TH><TH><FONT SIZE=-1>ORDERID </TH><TH><FONT SIZE=-1>CUSTOMERID </TH><TH><FONT SIZE=-1>ORDERDATE </TH></TR><TR><TD><FONT SIZE=-1>4</TD><TD><FONT SIZE=-1>2</TD><TD><FONT SIZE=-1>1</TD><TD><FONT SIZE=-1>15-Mar-97</TD></TR><TR><TD><FONT SIZE=-1>4</TD><TD><FONT SIZE=-1>3</TD><TD><FONT SIZE=-1>2</TD><TD><FONT SIZE=-1>18-Feb-97</TD></TR></TABLE>
+<TABLE  ><TR><TH><FONT SIZE=-1>BOOKID </TH><TH><FONT SIZE=-1>ORDERID </TH><TH><FONT SIZE=-1>CUSTOMERID </TH><TH><FONT SIZE=-1>ORDERDATE </TH></TR><TR><TD><FONT SIZE=-1>4</TD><TD><FONT SIZE=-1>2</TD><TD><FONT SIZE=-1>1</TD><TD><FONT SIZE=-1>Sat, 3/15/1997 (Customer 1)</TD></TR><TR><TD><FONT SIZE=-1>4</TD><TD><FONT SIZE=-1>3</TD><TD><FONT SIZE=-1>2</TD><TD><FONT SIZE=-1>Tue, 2/18/1997 (Customer 2)</TD></TR></TABLE>
+
