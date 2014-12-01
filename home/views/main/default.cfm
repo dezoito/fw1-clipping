@@ -10,10 +10,12 @@
             <p>
             <b><a href="#buildURL(action = 'clipping.form', queryString = 'clipping_id=' & Clipping.getClipping_Id())#">#application.prepara_string(Clipping.getClipping_titulo())#</a></b>
             <br/>
-                #application.abrevia_string(application.stripHTML(Clipping.getClipping_texto()), 200)#
+            <font class="text-muted">#dateFormat(Clipping.getCreated(), "mmmm d, yyyy")# at #timeFormat(Clipping.getCreated(), "hh:mm")#</font>
             <br/>
+            #application.abrevia_string(application.stripHTML(Clipping.getClipping_texto()), 200)#
 
-                #dateFormat(Clipping.getCreated(), "mmmm d, yyyy")# at #timeFormat(Clipping.getCreated(), "h:mm tt")#
+
+
             </p>
         </cfloop>
     <cfelse>
