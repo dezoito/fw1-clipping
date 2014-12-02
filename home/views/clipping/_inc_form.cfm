@@ -79,16 +79,26 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
 
 <!---    use WYSIWYG editor instead of textarea     --->
 <script>
-    // Replace the <textarea id="editor1"> with a CKEditor
+    // Replace the <textarea id="clipping_texto"> with a CKEditor
     // instance, using default configuration.
+    // examples in: http://ckeditor.com/latest/samples/plugins/toolbar/toolbar.html
     CKEDITOR.replace( 'clipping_texto', {
             width: 600,
             height: 300,
             resize_dir: 'both',
             resize_minWidth: 200,
             resize_minHeight: 300,
-            resize_maxWidth: 800
+            resize_maxWidth: 800,
+            toolbar: [
+                    { name: 'document', items: [ 'Source', '-', 'Templates' ] }, // Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+                    [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ],          // Defines toolbar group without name.                                                                               // Line break - next group will be placed in new line.
+                    { name: 'basicstyles', items: [ 'Bold', 'Italic'] },
+                    { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+                    { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'PageBreak'] },
+
+            ]
         });
+
 
     // if we have date inputs, make them a datepicker
     $(document).ready(function(){
