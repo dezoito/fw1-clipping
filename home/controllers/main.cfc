@@ -6,7 +6,6 @@ component accessors="true" {
      */
     property clippingService;
 
-
     /**
      * init FW variables and methods so that they are available to this controller
      */
@@ -22,7 +21,7 @@ component accessors="true" {
     function default( struct rc ) {
         fw.frameworkTrace( "<b>Running query to list articles</b>");
         // rc.qry_clipping = variables.clippingService.getAll(); // returns query
-        rc.qry_clipping = variables.clippingService.list(perpage=5); // returns a struct
+        rc.qry_clipping = variables.clippingService.list(perpage=12); // returns a struct
     }
 
     /**
