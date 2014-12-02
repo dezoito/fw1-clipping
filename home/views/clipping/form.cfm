@@ -6,7 +6,10 @@
         <div class="col-xs-offset-2 col-xs-10">
             <button type="submit" class="btn btn-primary">Save</button>
             <button type="button" class="btn go-back">Cancel</button>
-            <button type="button" class="btn btn-danger action-needs-confirm">Delete</button>
+
+            <cfif val(rc.Clipping.getClipping_id())>
+                <button type="button" class="btn btn-danger action-needs-confirm">Delete</button>
+            </cfif>
         </div>
     </div>
 </cfsavecontent>

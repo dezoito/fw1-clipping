@@ -21,8 +21,9 @@
     <link href="static/css/sweet-alert.css" rel="stylesheet">
     <link href="static/css/jquery-ui-1.10.3.custom.css" rel="stylesheet">
     <link href="static/css/bootstrap-switch.css" rel="stylesheet" media="screen">
-
     <script src="static/ckeditor/ckeditor.js"></script>
+
+
 
   </head>
 
@@ -123,27 +124,16 @@
         </div>
     </footer>
 
-    <!-- Le javascript
+    <!--
+    ==================================================
+    Load javascript references
     ================================================== -->
-    <!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
-    <script src="static/js/jquery-2.1.0.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
-    <script src="static/js/bootstrap-switch.js"></script>
-    <script src="static/js/lightbox-2.6.min.js"></script>
-    <script src="static/js/jquery.sticky.js"></script>
-    <script src="static/js/jquery-ui-1.10.3.custom.js"></script>
-    <script src="static/js/clipping.js"></script>
-    <script src="static/js/sweet-alert.js"></script>
+    <cfinclude template="_inc_javascript.cfm">
 
   </body>
 </html>
 
-<br/>
-<br/>
-<br/>
-
 <!-------------------------------------------------------------
 <cfdump var="#rc#"
   label="Request Context">
-
 --------------------------------------------------------------->
