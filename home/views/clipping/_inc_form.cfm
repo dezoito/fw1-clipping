@@ -89,4 +89,9 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
             resize_minHeight: 300,
             resize_maxWidth: 800
         });
+
+    // if we have date inputs, make them a datepicker
+    $(document).ready(function(){
+      $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
 </script>
