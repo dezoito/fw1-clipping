@@ -36,6 +36,20 @@ component accessors="true" {
     }
 
     /**
+     * Generates clipping form
+     * either for a new one, or for an update
+     * to be displayed in a modal window
+     */
+    function ajaxForm (struct rc){
+        variables.fw.disableFrameworkTrace();
+
+        // builds the form in the same way
+        return form( rc );
+
+        // will render clipping.ajaxform view from here...
+    }
+
+    /**
      * saves an article
      */
     function save( struct rc ) {

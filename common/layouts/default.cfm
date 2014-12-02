@@ -28,9 +28,6 @@
 
   <body>
 
-    <!---    modal window    --->
-    <cfinclude template="_inc_modal.cfm"/>
-
     <div class="navbar navbar-inverse navbar-fixed-top" style="opacity:0.95;">
       <div class="container">
         <div class="navbar-header">
@@ -94,6 +91,8 @@
 
             <!-- ********************  main body ********************  -->
             <div class="col-sm-8" id="div_body">
+                  <!---    modal window    --->
+                  <cfinclude template="_inc_modal.cfm"/>
 
                 <h2><strong>FW/1 Clipping System</strong></h2>
 

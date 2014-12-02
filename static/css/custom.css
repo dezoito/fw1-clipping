@@ -52,6 +52,15 @@ Divs de menu lateral e tabs apresentadas no detalhe de modelo
 	Bootstrap 3 Overide
  -----------------------------------------------
  */
+
+/*
+  sets width for large modal windows
+ */
+.modal-lg {
+  width: 900px;
+}
+
+
 .form-control{
 	margin: 8px;
 }

@@ -1,7 +1,9 @@
 <!-- home::views/default -->
 <cfoutput>
   | <a href="#buildURL('clipping.form')#">Add an Article</a>
-  |<br/>
+  | <a href="javascript: ajaxClippingForm('#buildURL('clipping.ajaxForm')#');">Add an Article (Ajax)</a>
+  |
+  <br/>
 </cfoutput>
 <br/>
 <cfoutput>
@@ -9,6 +11,7 @@
         <cfloop index="Clipping" array="#rc.qry_clipping.data#">
             <p>
             <b><a href="#buildURL(action = 'clipping.form', queryString = 'clipping_id=' & Clipping.getClipping_Id())#">#application.prepara_string(Clipping.getClipping_titulo())#</a></b>
+             | <a href="javascript: ajaxClippingForm('#buildURL('clipping.ajaxForm')#',#Clipping.getClipping_Id()#);">Edit (Ajax)</a>
             <br/>
             <font class="text-muted">#dateFormat(Clipping.getCreated(), "mmmm d, yyyy")# at #timeFormat(Clipping.getCreated(), "hh:mm")#</font>
             <br/>

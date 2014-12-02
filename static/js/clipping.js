@@ -1,13 +1,18 @@
 /**
  * janela Modal para Ocorrências
  */
-function ajax_ocorrencia_lista(id){
-  $.get( "/ajax_ocorrencia_lista/" + id, function( data ) {
+function ajaxClippingForm(url, clipping_id){
+  // if no id was passed, set it to zero
+  clipping_id = typeof clipping_id !== 'undefined' ? clipping_id : 0;
+
+  // load form view
+  $.get( url + '&clipping_id=' + clipping_id, function( data ) {
     $( ".modal-body" ).html( data );
-    $( ".modal-title" ).html( "Lista de Ocorrências" );
+    $( ".modal-title" ).html( "Add or Edit an Article" );
     $('#myModal').modal({show:true});
   });
 }
+
 /**
  * Faz a busca por modelos ou exemplares a medida que o usuario digita
  * carrega resultados dinamicamente
