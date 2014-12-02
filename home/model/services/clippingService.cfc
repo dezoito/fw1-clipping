@@ -43,17 +43,17 @@ component {
     public any function save(struct rc) {
         transaction {
             // var thisUser = entityLoadByPk("user", user);
-            //  INsert or Update?
+            //  Insert or Update?
             if(val(arguments.rc.clipping_id)){
                     var c = entityLoadByPk("Clipping", arguments.rc.clipping_id);
                 } else {
                     var c = entityNew("clipping");
                 }
 
-            c.setClipping_titulo(trim(arguments.rc.clipping_titulo));
-            c.setClipping_texto(trim(arguments.rc.clipping_texto));
-            c.setClipping_link(trim(arguments.rc.clipping_link));
-            c.setClipping_fonte(trim(arguments.rc.clipping_fonte));
+            c.setClipping_titulo(trim(application.stripHTML(arguments.rc.clipping_titulo)));
+            c.setClipping_texto(application.safetext(arguments.rc.clipping_texto, true));
+            c.setClipping_link(trim(application.stripHTML(arguments.rc.clipping_link)));
+            c.setClipping_fonte(trim(application.stripHTML(arguments.rc.clipping_fonte)));
             c.setPublished(arguments.rc.Published);
             c.setCreated(Now());
             entitySave(c);
