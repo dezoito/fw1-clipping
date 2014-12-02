@@ -1,11 +1,9 @@
 <cfset request.layout = false>
-<cfsetting showdebugoutput="false">
-
-    <!--
-    ==================================================
-    Load javascript references
-    ================================================== -->
-    <cfinclude template="../../../common/layouts/_inc_javascript.cfm">
+<!---
+==================================================
+Load javascript references
+================================================== --->
+<cfinclude template="../../../common/layouts/_inc_javascript.cfm">
 
 <cfsavecontent
     variable = "button_menu">

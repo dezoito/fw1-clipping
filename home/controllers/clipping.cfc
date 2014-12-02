@@ -41,9 +41,11 @@ component accessors="true" {
      * to be displayed in a modal window
      */
     function ajaxForm (struct rc){
+        // disable trace and debug info
         variables.fw.disableFrameworkTrace();
+        setting showdebugoutput="false";
 
-        // builds the form in the same way
+        // builds the form just like the non-ajax version
         return form( rc );
 
         // will render clipping.ajaxform view from here...
@@ -79,7 +81,7 @@ component accessors="true" {
     function delete( struct rc ) {
         variables.fw.frameworkTrace( "<b>Delete Method on Clipping Controller</b>");
         if (cgi.request_Method=="post"){
-            // delete this objectusing the clippingService
+            // delete this object using the clippingService
             rc.Clipping = variables.clippingService.delete(rc.clipping_id);
         }
         variables.fw.redirect("main.default");

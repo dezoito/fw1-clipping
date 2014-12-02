@@ -1,5 +1,10 @@
+<!-------------------------------------------------------------
+Include with common form definitions and fields.
+Menus are defined at the parent .cfm
 
+--------------------------------------------------------------->
 
+<!---    display form error messages     --->
 <cfif structKeyExists(rc, "errors") and (arrayLen(rc.errors) gt 0)>
     <div class="alert alert-danger">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
