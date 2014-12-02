@@ -58,15 +58,8 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
         </div>
     </div>
 
-
-
-    <div class="form-group">
-        <div class="col-xs-offset-2 col-xs-10">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" class="btn go-back">Cancel</button>
-            <button type="button" class="btn btn-danger action-needs-confirm">Delete</button>
-        </div>
-    </div>
+    <!---    display menu (defined in the view)     --->
+    #button_menu#
 
 
 </form>
