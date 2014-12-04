@@ -15,9 +15,9 @@
             <br/>
             <font class="text-muted small">#dateFormat(Clipping.getCreated(), "mmmm d, yyyy")# at #timeFormat(Clipping.getCreated(), "hh:mm")#</font>
             <br/>
+
+            <!---    shows a short preview of text (HTML tags removed)     --->
             #application.abrevia_string(application.stripHTML(Clipping.getClipping_texto()), 200)#
-
-
 
             </p>
         </cfloop>

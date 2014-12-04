@@ -1,8 +1,7 @@
 component accessors="true" {
 
     /**
-     * and we add a declaration that the controller depends on the new clipping.cfc
-     * (in model/services):
+     * and we add a declaration that the controller depends on model/services/clippingService.cfc
      */
     property clippingService;
 
@@ -29,7 +28,7 @@ component accessors="true" {
                 variables.fw.redirect("main");
             }
         } else {
-            // if we don't have a valid id, initiaslize object with the needed defaults
+            // if we don't have a valid id, initialize object with the needed defaults
             rc.Clipping = entityNew("clipping");
         }
         // will render clipping.form view from here...
@@ -75,8 +74,7 @@ component accessors="true" {
     }
 
     /**
-     * saves an article
-     * POST only!!!
+     * deletes an article - on POST requests only!!!
      */
     function delete( struct rc ) {
         variables.fw.frameworkTrace( "<b>Delete Method on Clipping Controller</b>");

@@ -21,8 +21,8 @@
     <link href="static/css/sweet-alert.css" rel="stylesheet">
     <link href="static/css/jquery-ui-1.10.3.custom.css" rel="stylesheet">
     <link href="static/css/bootstrap-switch.css" rel="stylesheet" media="screen">
-    <script src="static/ckeditor/ckeditor.js"></script>
 
+    <script src="static/ckeditor/ckeditor.js"></script>
   </head>
 
   <body>
@@ -61,12 +61,7 @@
 
             <!-- Login/logout -->
 <!-------------------------------------------------------------
-           {% if user.is_authenticated %}
-            <!-- <li class="navbar-text">Welcome, {{ user.username }}!</li> -->
-            <li><a href="{% url 'logout'>Logout de <b>{{ user.username }}</b></a></li>
-           {% else %}
-            <li><a href="{% url 'login'>Login</a></li>
-           {% endif %}
+        Display login or logout links
 --------------------------------------------------------------->
 
           </ul>
@@ -81,12 +76,12 @@
             <br/>
             <!-------------------------------------------------------------
 
-                            <div class="well" id="divMenuCategorias"> <!-- class="well sidebar-nav" -->
-                                <div id="divListaCategorias">
+                <div class="well" id="divMenuCategorias"> <!-- class="well sidebar-nav" -->
+                    <div id="divListaCategorias">
 
 
-                                </div>
-                            </div><!--/.well -->
+                    </div>
+                </div><!--/.well -->
 
             --------------------------------------------------------------->
             </div><!--/ right col-->
@@ -104,13 +99,11 @@
 
               <!-- menu lateral direito-->
 <!-------------------------------------------------------------
-              {% if user.is_authenticated %}
+                <!---    only for authenticated users     --->
                 <div class="col-sm-3" id="div_righttCol">
                   <p>
-                    {% block menu_block %}
-                    {% endblock %}
-                </div><!-- /menu lateral direito -->
-              {% endif %}
+                </div>
+
 --------------------------------------------------------------->
 
         </div><!--/row-->

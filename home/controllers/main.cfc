@@ -1,7 +1,7 @@
 component accessors="true" {
 
     /**
-     * and we add a declaration that the controller depends on the new clipping.cfc
+     * and we add a declaration that the controller depends on the new clippingService.cfc
      * (in model/services):
      */
     property clippingService;
