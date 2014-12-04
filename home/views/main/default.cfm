@@ -11,7 +11,9 @@
         <cfloop index="Clipping" array="#rc.qry_clipping.data#">
             <p>
             <b><a href="#buildURL(action = 'clipping.form', queryString = 'clipping_id=' & Clipping.getClipping_Id())#">#application.prepara_string(Clipping.getClipping_titulo())#</a></b>
-             | <a href="javascript: ajaxClippingForm('#buildURL('clipping.ajaxForm')#',#Clipping.getClipping_Id()#);">Edit (Ajax)</a>
+              | <a href="javascript: ajaxClippingForm('#buildURL('clipping.ajaxForm')#',#Clipping.getClipping_Id()#);">Edit (Ajax)</a>
+              | <a href="#buildURL(action = 'clipping.summary', queryString = 'clipping_id=' & Clipping.getClipping_Id())#">View Summary</a>
+              |
             <br/>
             <font class="text-muted small">#dateFormat(Clipping.getCreated(), "mmmm d, yyyy")# at #timeFormat(Clipping.getCreated(), "hh:mm")#</font>
             <br/>

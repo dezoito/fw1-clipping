@@ -1,9 +1,11 @@
 component accessors="true" {
 
     /**
-     * and we add a declaration that the controller depends on model/services/clippingService.cfc
+     * This controller needs the services bellow
+     * (they are found in <subsystem>/models/services)
      */
     property clippingService;
+    property summaryService;
 
     /**
      * init FW variables and methods so that they are available to this controller
@@ -83,5 +85,14 @@ component accessors="true" {
             rc.Clipping = variables.clippingService.delete(rc.clipping_id);
         }
         variables.fw.redirect("main.default");
+    }
+
+    /**
+     * Uses webservice to summarize the Article's text
+     */
+    function summary( struct rc ) {
+        variables.fw.frameworkTrace( "<b>Summary Method on Clipping Controller</b>");
+        rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);
+        rc.Summary = variables.summaryService.getSummary(rc.Clipping.getClipping_texto());
     }
 }
