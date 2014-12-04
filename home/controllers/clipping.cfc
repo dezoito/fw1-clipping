@@ -89,10 +89,19 @@ component accessors="true" {
 
     /**
      * Uses webservice to summarize the Article's text
+     * It retuns only TEXT and does not use a layout
      */
     function summary( struct rc ) {
         variables.fw.frameworkTrace( "<b>Summary Method on Clipping Controller</b>");
         rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);
         rc.Summary = variables.summaryService.getSummary(rc.Clipping.getClipping_texto());
+
+        // comment out the three lines below
+        // to render the clipping.summary view instead
+        // (useful for debugging)
+        var contentType = 'text';
+        setting showdebugoutput='false';
+        variables.fw.renderData( contentType, rc.Summary);
     }
 }
+

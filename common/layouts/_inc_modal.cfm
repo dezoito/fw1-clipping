@@ -12,7 +12,7 @@ Displays a JS generated modal window
               Content for the dialog / modal goes here.
             </div>
             <div class="modal-footer">
-              <!-- <a href="#" data-dismiss="modal" class="btn btn-default">Close</a> -->
+              <a href="#" data-dismiss="modal" class="btn btn-default">Close</a>
               <!-- <a href="#" class="btn btn-primary">Save changes</a> -->
             </div>
           </div>

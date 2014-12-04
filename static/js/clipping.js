@@ -14,6 +14,21 @@ function ajaxClippingForm(url, clipping_id){
 }
 
 /**
+ * Displays article summary in modal window
+ */
+function ajaxViewSummary(url, clipping_id){
+  // if no id was passed, set it to zero
+  clipping_id = typeof clipping_id !== 'undefined' ? clipping_id : 0;
+
+  // load form view
+  $.get( url + '&clipping_id=' + clipping_id, function( data ) {
+    $( ".modal-body" ).html( data );
+    $( ".modal-title" ).html( "Article Summary" );
+    $('#myModal').modal({show:true});
+  });
+}
+
+/**
  * Handles search, dynamical/y updating results
  *
  */
