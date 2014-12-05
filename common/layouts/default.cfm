@@ -89,7 +89,7 @@
             <!-- ********************  main body ********************  -->
             <div class="col-sm-8" id="div_body">
 
-                <h2><strong>FW/1 Clipping System</strong></h2>
+                <h2><strong>FW/1 Clipping App</strong></h2>
 
                 <cfoutput>#body#</cfoutput>
 

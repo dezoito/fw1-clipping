@@ -58,7 +58,10 @@ component accessors="true" {
     function save( struct rc ) {
         variables.fw.frameworkTrace( "<b>Save Method on Clipping Controller</b>");
 
-        // ------------ validation ---------
+        // abort execution in case of CRSF attack (use UDF defined in lib.functions.cfc)
+        application.preventCSRFAttack( rc );
+
+        // ------------ field validation ---------
         // if we have errors, go back to the form passing "ALL" rc values
         isValidForm = variables.clippingService.validate( rc );
         if(!isValidForm) {
@@ -80,6 +83,10 @@ component accessors="true" {
      */
     function delete( struct rc ) {
         variables.fw.frameworkTrace( "<b>Delete Method on Clipping Controller</b>");
+
+        // abort execution in case of CRSF attack (use UDF defined in lib.functions.cfc)
+        application.preventCSRFAttack( rc );
+
         if (cgi.request_Method=="post"){
             // delete this object using the clippingService
             rc.Clipping = variables.clippingService.delete(rc.clipping_id);

@@ -16,7 +16,7 @@ component {
         // if not, just the string we need
 
         if (len(st_summary.errordetail) > 0) {
-            return "There was an error trying to use summary service";
+            return "There was an error trying to use summary service :'(";
         } else {
             return st_summary.filecontent;
         }

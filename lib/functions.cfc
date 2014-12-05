@@ -12,6 +12,16 @@ or
 
     <cfscript>
         /**
+         * prevents CSRF attacks by checking for valid CSRF Tokens
+         */
+        function preventCSRFAttack( struct rc ){
+            if(!structKeyExists(rc, "csrfToken") || (!CSRFVerifyToken(rc.csrfToken))){
+                abort showerror="Invalid CSRF Token...aborting execution.";
+            }
+        }
+        application.preventCSRFAttack = preventCSRFAttack;
+
+        /**
          * stripHTML description: removes HTML tags from a string
          * (from http://www.cflib.org/udf/stripHTML)
          */

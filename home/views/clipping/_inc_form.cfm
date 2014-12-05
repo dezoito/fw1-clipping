@@ -25,6 +25,8 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
 <cfoutput>
 <form action="#buildURL('clipping.save')#" method="post" role="form" class="form-horizontal">
 
+    <input name="csrftoken" type="hidden" value="#session.csrfToken#">
+
     <input type="hidden" name="clipping_id" id="clipping_id"
         value="#HtmlEditFormat(rc.Clipping.getClipping_id())#">
 
@@ -79,6 +81,7 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
 <!---    form to delete clipping articles     --->
 <cfoutput>
     <form action="#buildURL('clipping.delete')#" method="post" id="form-delete">
+        <input name="csrftoken" type="hidden" value="#session.csrfToken#">
         <input type="hidden" name="clipping_id" id="clipping_id" value="#HtmlEditFormat(rc.Clipping.getClipping_id())#">
     </form>
 </cfoutput>

@@ -1,5 +1,3 @@
-
-
 component extends="org.corfield.framework" {
 
     // ------------------------ APPLICATION SETTINGS ------------------------ //
@@ -81,13 +79,20 @@ component extends="org.corfield.framework" {
         setSubsystemBeanFactory('home', homeBf);
         variables.frameworkTrace( "<b>Just setup Bean Factory</b>", 'homeBf');
 
-
         // setting an application var
         application.datasource = this.datasource;
 
         // include UDF functions
         // the functions inside the CFC cann be referred by application.functionName()
         application.tools = createObject("component", "lib.functions");
+    }
+
+    /**
+     * sets up session vars and logic when a session starts
+     */
+    function setupSession(){
+        // CSRF Token, unique for each user/session
+        session.csrftoken = CSRFGenerateToken();
     }
 
     /**
@@ -109,7 +114,6 @@ component extends="org.corfield.framework" {
      */
     function setupRequest() {
         // controller( 'security.checkAuthorization' );
-        request.example_request_var = "Elephant";
     }
 
     /**
@@ -135,10 +139,4 @@ component extends="org.corfield.framework" {
         // end of request processing
     }
 
-    /**
-     * sets up session vars and logic when a session starts
-     */
-    function setupSession(){
-        session.example_session_var = "platipus";
-    }
 }
