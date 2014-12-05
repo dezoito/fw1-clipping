@@ -27,14 +27,14 @@ or
          */
         string function stripHTML(str) output="false" {
             // return REReplaceNoCase(arguments.str,"<[^>]*>","","ALL");
-            str = reReplaceNoCase(str, "<*style.*?>(.*?)</style>","","all");
-            str = reReplaceNoCase(str, "<*script.*?>(.*?)</script>","","all");
+            var str = reReplaceNoCase(str, "<*style.*?>(.*?)</style>","","all");
+            var str = reReplaceNoCase(str, "<*script.*?>(.*?)</script>","","all");
 
-            str = reReplaceNoCase(str, "<.*?>","","all");
+            var str = reReplaceNoCase(str, "<.*?>","","all");
             //get partial html in front
-            str = reReplaceNoCase(str, "^.*?>","");
+            var str = reReplaceNoCase(str, "^.*?>","");
             //get partial html at end
-            str = reReplaceNoCase(str, "<.*$","");
+            var str = reReplaceNoCase(str, "<.*$","");
             return trim(str);
         }
         application.stripHTML = stripHTML;
@@ -114,7 +114,7 @@ or
         function abrevia_nome_arquivo(texto, qtd)
         {
             if(len(texto) gt (qtd-7)){
-                texto = mid(texto, "1", (qtd-7)) & "..." & right(upload_nome, 7);
+                var texto = mid(texto, "1", (qtd-7)) & "..." & right(upload_nome, 7);
             }
             return texto;
         }
@@ -127,7 +127,7 @@ or
         function abrevia_string(texto, qtd){
             if(len(texto) gt qtd)
             {
-                texto = mid(texto, "1", qtd) & "...";
+                var texto = mid(texto, "1", qtd) & "...";
             }
             return texto;
         }
@@ -138,10 +138,10 @@ or
          */
         function decimal_format_br(numero){
             if(listfirst(Server.ColdFusion.ProductVersion) GTE "6"){
-                texto = replace(decimalformat(numero), ".", "", "ALL");
-                texto = replace(texto, ",",  ".", "ALL");
+                var texto = replace(decimalformat(numero), ".", "", "ALL");
+                var texto = replace(texto, ",",  ".", "ALL");
             }else{
-                texto = replace(decimalformat(numero), ",", "", "ALL");
+                var texto = replace(decimalformat(numero), ",", "", "ALL");
             }
 
             return texto;
@@ -155,11 +155,11 @@ or
         function define_virgula(currentrow, recordcount){
             if(currentrow neq recordcount)
             {
-                texto = ", ";
+                var texto = ", ";
             }
             else
             {
-                texto="";
+                var texto="";
             }
             return texto;
         }
@@ -170,13 +170,13 @@ or
          */
         function formata_label(texto){
             //Substitui caracteres acentuados pelos mesmos caracteres s/ acentuação, em uma nova variável
-            label_s_acentos = trim(replacelist(texto, "á,é,í,ó,ú,ç,ã,õ,à,ô,ê", "a,e,i,o,u,c,a,o,a,o,e"));
-            label_s_acentos = replacelist(label_s_acentos, "Á,É,Í,Ó,Ú,Ç,Ã,Õ,À,Ô,Ê", "A,E,I,O,U,C,A,O,A,O,E");
+            var label_s_acentos = trim(replacelist(texto, "á,é,í,ó,ú,ç,ã,õ,à,ô,ê", "a,e,i,o,u,c,a,o,a,o,e"));
+            var label_s_acentos = replacelist(label_s_acentos, "Á,É,Í,Ó,Ú,Ç,Ã,Õ,À,Ô,Ê", "A,E,I,O,U,C,A,O,A,O,E");
 
             // retira caracteres indesejados
-            label_s_acentos = replace(label_s_acentos, "|", "_", "ALL");
-            label_s_acentos = replace(label_s_acentos, ",", "_", "ALL");
-            label_final = replace(label_s_acentos, " ", "_", "ALL");
+            var label_s_acentos = replace(label_s_acentos, "|", "_", "ALL");
+            var label_s_acentos = replace(label_s_acentos, ",", "_", "ALL");
+            var label_final = replace(label_s_acentos, " ", "_", "ALL");
             return label_final;
         }
         application.formata_label = formata_label;

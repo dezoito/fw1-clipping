@@ -110,7 +110,7 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
 
 
     // if we have date inputs, make them a datepicker
-    $(document).ready(function(){
-      $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
-    });
+    // $(document).ready(function(){
+    //   $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+    // });
 </script>

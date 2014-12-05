@@ -54,6 +54,11 @@ $(".go-back").click(function(){
   history.back();
 });
 
+// if we have date inputs, make them a datepicker
+$(document).ready(function(){
+  $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+});
+
 /**
  *  Sweet Alert
  *  Gera confirms estilizados na exclusão de modelos
