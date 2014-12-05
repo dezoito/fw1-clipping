@@ -2,6 +2,7 @@
 <!---
 ==================================================
 Load javascript references
+(we have to reload them since this is going to run on an ajax loaded modal)
 ================================================== --->
 <cfinclude template="../../../common/layouts/_inc_javascript.cfm">
 
