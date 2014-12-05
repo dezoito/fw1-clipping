@@ -14,7 +14,6 @@ component {
         // st_summary is a struct with a bunch of stuff
         // if there's a error, return an error message
         // if not, just the string we need
-
         if (len(st_summary.errordetail) > 0) {
             return "There was an error trying to use summary service :'(";
         } else {
