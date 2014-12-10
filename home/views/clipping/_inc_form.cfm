@@ -4,16 +4,20 @@ Menus are defined at the parent .cfm
 
 --------------------------------------------------------------->
 
-<!---    display form error messages     --->
-<cfif structKeyExists(rc, "errors") and (arrayLen(rc.errors) gt 0)>
+<!---    display alert if there were errors     --->
+<cfif structKeyExists(rc, "stErrors") and (structCount(rc.stErrors) gt 0)>
     <div class="alert alert-danger">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <b>Your article could not be posted due to the following error(s):</b><br/>
+            <b>Your article could not be posted!</b><br/>
+            Please fix the errors below:
+
+<!-------------------------------------------------------------
             <ul>
-            <cfloop index="e" array="#rc.errors#">
-                <cfoutput><li>#e#</li></cfoutput>
+            <cfloop index="e" struct="#rc.stErrors#">
+                <cfoutput><li>#rc.stErrors[e]#</li></cfoutput>
             </cfloop>
             </ul>
+--------------------------------------------------------------->
     </div>
 </cfif>
 
@@ -33,8 +37,10 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
     <div class="form-group">
         <label for="clipping_titulo" class="control-label col-sm-2">Title <span class="required">*</span></label>
         <div class="col-sm-9">
-            <input type="text" name="clipping_titulo"
-                value="#HTMLEditFormat(rc.Clipping.getClipping_titulo())#" size="100"  class="form-control">
+            <input type="text" name="clipping_titulo" id="clipping_titulo"
+                value="#HTMLEditFormat(rc.Clipping.getClipping_titulo())#" size="100" class="form-control">
+                <!---    display errors?    --->
+                #view("helpers/_field_error", {field="clipping_titulo"})#
         </div>
     </div>
 
@@ -43,6 +49,8 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
         <div class="col-sm-9">
             <textarea name="clipping_texto" id="clipping_texto" cols="50" rows="10"
                 class="form-control">#HTMLEditFormat(rc.Clipping.getClipping_texto())#</textarea>
+                <!---    display errors?    --->
+                #view("helpers/_field_error", {field="clipping_texto"})#
         </div>
     </div>
 
@@ -51,6 +59,8 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
         <div class="col-sm-9">
             <input type="url" name="clipping_link"
                 value="#HTMLEditFormat(rc.Clipping.getClipping_link())#" size="100"  class="form-control">
+                <!---    display errors?    --->
+                #view("helpers/_field_error", {field="clipping_link"})#
         </div>
     </div>
 
@@ -59,6 +69,8 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
         <div class="col-sm-9">
             <input type="text" name="clipping_fonte"
                 value="#HTMLEditFormat(rc.Clipping.getClipping_fonte())#" size="100"  class="form-control">
+                <!---    display errors?    --->
+                #view("helpers/_field_error", {field="clipping_fonte"})#
         </div>
     </div>
 
@@ -68,6 +80,8 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
             <input type="text" name="published"
                 value="#dateFormat(rc.Clipping.getPublished(), "dd/mm/yyyy")#" size="10"
                 class="form-control datepicker">
+                <!---    display errors?    --->
+                #view("helpers/_field_error", {field="published"})#
         </div>
     </div>
 

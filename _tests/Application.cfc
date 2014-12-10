@@ -2,6 +2,8 @@
  *
  * It is based (I mean, copied) fron  the one on Xindi:
  * https://github.com/simonbingham/xindi/blob/master/_tests/Application.cfc
+ *
+ * Notice that we have a database/datasource made exclusively for tests
  */
 component{
 
@@ -16,7 +18,7 @@ component{
     // "frameworks" mapping is defined in administrator
     // this.mappings["/frameworks"] = this.applicationroot & "frameworks/";
     this.mappings["/model"] = this.applicationroot & "home/model/";
-    this.datasource = "dtb_clipping";
+    this.datasource = "dtb_clipping_test";
     this.ormenabled = true;
     this.ormsettings = {
         flushatrequestend = false
