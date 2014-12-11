@@ -54,10 +54,11 @@ component {
                 }
 
             // run a bunch of functions on each string field and then insert or update
-            c.setClipping_titulo(trim(application.prepara_string(application.stripHTML(arguments.rc.clipping_titulo))));
-            c.setClipping_texto(application.safetext(arguments.rc.clipping_texto, true));
-            c.setClipping_link(trim(application.prepara_string(application.stripHTML(arguments.rc.clipping_link))));
-            c.setClipping_fonte(trim(application.prepara_string(application.stripHTML(arguments.rc.clipping_fonte))));
+            UDFs = application.UDFs
+            c.setClipping_titulo(trim(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_titulo))));
+            c.setClipping_texto(UDFs.safetext(arguments.rc.clipping_texto, true));
+            c.setClipping_link(trim(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_link))));
+            c.setClipping_fonte(trim(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_fonte))));
             c.setPublished(dateformat(arguments.rc.Published, "dd/mm/yyyy")); // handle eurodates
             c.setCreated(Now());
             entitySave(c);

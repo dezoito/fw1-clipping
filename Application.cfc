@@ -81,12 +81,11 @@ component extends="org.corfield.framework" {
         setSubsystemBeanFactory('home', homeBf);
         variables.frameworkTrace( "<b>Just setup Bean Factory</b>", 'homeBf');
 
-        // setting an application var
         application.datasource = this.datasource;
 
         // include UDF functions
-        // the functions inside the CFC cann be referred by application.functionName()
-        application.tools = createObject("component", "lib.functions");
+        // the functions inside the CFC cann be referred by application.UDFs.functionName()
+        application.UDFs = createObject("component", "lib.functions");
     }
 
     /**
