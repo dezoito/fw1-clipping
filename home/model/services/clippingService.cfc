@@ -10,30 +10,33 @@ component {
      * @return boolean
      */
     public any function validate(struct rc) {
-        rc.errors = [];
+        rc.stErrors = {};
 
         // ------------ start validation ---------
+        // create a struct to store the errors
+        // the key is the field's name and the value is the message
+        //
         // for now we are handling validation in the controllers.
         // later, we will move this to the model using validateThis()
         // https://groups.google.com/forum/#!topic/framework-one/Hh-YcyCQcJA
         if(!len(trim(rc.clipping_titulo))) {
-            arrayAppend(rc.errors, "You must include a title for your clipping.");
+            structInsert(rc.stErrors,"clipping_titulo","You must include a title for your clipping.");
         }
 
         if(!len(trim(rc.clipping_texto))) {
-            arrayAppend(rc.errors, "You must include text for your clipping.");
+            structInsert(rc.stErrors,"clipping_texto","You must include text for your clipping.");
         }
 
         if(len(trim(rc.clipping_link)) && !isValid("url", rc.clipping_link)) {
-            arrayAppend(rc.errors, "If you include a link, it has to be formatted. Ex: http://www.link.com.");
+            structInsert(rc.stErrors,"clipping_link","If you include a link, it has to be formatted. Ex: http://www.link.com.");
         }
 
         if(!len(trim(rc.published)) || !isValid("eurodate", trim(rc.published))) {
-            arrayAppend(rc.errors, "You must specify a valid publishing date.");
+            structInsert(rc.stErrors,"published","You must specify a valid publishing date.");
         }
-        // we are saving the errors to rc.errors anyway
+        // we are saving the errors to rc.stErrors anyway
         // return true if there are NONE
-        return !val(arrayLen(rc.errors));
+        return !val(structCount(rc.stErrors));
     }
 
 
@@ -51,10 +54,11 @@ component {
                 }
 
             // run a bunch of functions on each string field and then insert or update
-            c.setClipping_titulo(trim(application.prepara_string(application.stripHTML(arguments.rc.clipping_titulo))));
-            c.setClipping_texto(application.safetext(arguments.rc.clipping_texto, true));
-            c.setClipping_link(trim(application.prepara_string(application.stripHTML(arguments.rc.clipping_link))));
-            c.setClipping_fonte(trim(application.prepara_string(application.stripHTML(arguments.rc.clipping_fonte))));
+            UDFs = application.UDFs
+            c.setClipping_titulo(trim(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_titulo))));
+            c.setClipping_texto(UDFs.safetext(arguments.rc.clipping_texto, true));
+            c.setClipping_link(trim(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_link))));
+            c.setClipping_fonte(trim(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_fonte))));
             c.setPublished(dateformat(arguments.rc.Published, "dd/mm/yyyy")); // handle eurodates
             c.setCreated(Now());
             entitySave(c);

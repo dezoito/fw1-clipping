@@ -1,11 +1,13 @@
 <!-------------------------------------------------------------
-Contains UDFs that are available through the application scope.
+Contains a series of useful UDFs
+
+This component will be invoked and saved in the applications scope
 
 EXAMPLE:
 
-cleanStr = application.stripHTML(some_string);
+cleanStr = application.UDFs.stripHTML(some_string);
 or
-<p>#application.stripHTML(some_string)#</p>
+<p>#application.UDFs.stripHTML(some_string)#</p>
 --------------------------------------------------------------->
 
 <cfcomponent cacheUse="read-only" output="false">
@@ -14,12 +16,12 @@ or
         /**
          * prevents CSRF attacks by checking for valid CSRF Tokens
          */
-        function preventCSRFAttack( struct rc ){
+        function abortOnCSRFAttack( struct rc ){
             if(!structKeyExists(rc, "csrfToken") || (!CSRFVerifyToken(rc.csrfToken))){
                 abort showerror="Invalid CSRF Token...aborting execution.";
             }
         }
-        application.preventCSRFAttack = preventCSRFAttack;
+        this.abortOnCSRFAttack = abortOnCSRFAttack;
 
         /**
          * stripHTML description: removes HTML tags from a string
@@ -37,7 +39,7 @@ or
             var str = reReplaceNoCase(str, "<.*$","");
             return trim(str);
         }
-        application.stripHTML = stripHTML;
+        this.stripHTML = stripHTML;
 
         /**
          * removes a selection of BAD HTML tags and JS events
@@ -97,7 +99,7 @@ or
             //return theText
             return theText;
         }
-        application.safetext = safetext;
+        this.safetext = safetext;
 
 
         // ---------------------------------------------------------------------
@@ -118,7 +120,7 @@ or
             }
             return texto;
         }
-        application.abrevia_nome_arquivo = abrevia_nome_arquivo;
+        this.abrevia_nome_arquivo = abrevia_nome_arquivo;
 
         /**
          * Slices a string at QTD chars and adds "..." at the end
@@ -131,7 +133,7 @@ or
             }
             return texto;
         }
-        application.abrevia_string = abrevia_string;
+        this.abrevia_string = abrevia_string;
 
         /**
          * Brazilian Decimal format (needed after CFMX changed things)
@@ -146,7 +148,7 @@ or
 
             return texto;
         }
-        application.decimal_format_br = decimal_format_br;
+        this.decimal_format_br = decimal_format_br;
 
         /**
          * define_virgula: use it in a query to separate records by commas (except the last)
@@ -163,7 +165,7 @@ or
             }
             return texto;
         }
-        application.define_virgula = define_virgula;
+        this.define_virgula = define_virgula;
 
         /**
          * formata_label: generates a "slug", removing funky characters from a string
@@ -179,7 +181,7 @@ or
             var label_final = replace(label_s_acentos, " ", "_", "ALL");
             return label_final;
         }
-        application.formata_label = formata_label;
+        this.formata_label = formata_label;
 
         /**
          *  Prepares a string to be inserted (or updated on a DB):
@@ -188,9 +190,9 @@ or
          *  - keeps numeral characters consistent
          */
         function prepara_string(texto){
-            return application.remove_aspas_simples_extras(application.normaliza_numeral(application.remove_espaco_extra(trim(texto))));
+            return this.remove_aspas_simples_extras(this.normaliza_numeral(this.remove_espaco_extra(trim(texto))));
         }
-        application.prepara_string = prepara_string;
+        this.prepara_string = prepara_string;
 
         /**
          *  Prepares a string to be inserted (or updated on a DB):
@@ -199,7 +201,7 @@ or
         function remove_aspas_simples_extras(texto){
             return rereplace(texto, "('+)", "''", "all");
         }
-        application.remove_aspas_simples_extras = remove_aspas_simples_extras;
+        this.remove_aspas_simples_extras = remove_aspas_simples_extras;
 
         /**
          *  - rememoves extra espaces: "  " --> " "
@@ -207,7 +209,7 @@ or
         function remove_espaco_extra(texto){
             return rereplace(texto, "( +)", " ", "all");
         }
-        application.remove_espaco_extra = remove_espaco_extra;
+        this.remove_espaco_extra = remove_espaco_extra;
 
                  /**
                   *  - keeps numeral characters consistent
@@ -217,7 +219,7 @@ or
         {
             return replace(texto, "°", "º", "all");
         }
-        application.normaliza_numeral = normaliza_numeral;
+        this.normaliza_numeral = normaliza_numeral;
 
     </cfscript>
 

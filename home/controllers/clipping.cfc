@@ -59,7 +59,7 @@ component accessors="true" {
         variables.fw.frameworkTrace( "<b>Save Method on Clipping Controller</b>");
 
         // abort execution in case of CRSF attack (use UDF defined in lib.functions.cfc)
-        application.preventCSRFAttack( rc );
+        application.UDFs.abortOnCSRFAttack( rc );
 
         // ------------ field validation ---------
         // if we have errors, go back to the form passing "ALL" rc values
@@ -85,7 +85,7 @@ component accessors="true" {
         variables.fw.frameworkTrace( "<b>Delete Method on Clipping Controller</b>");
 
         // abort execution in case of CRSF attack (use UDF defined in lib.functions.cfc)
-        application.preventCSRFAttack( rc );
+        application.abortOnCSRFAttack( rc );
 
         if (cgi.request_Method=="post"){
             // delete this object using the clippingService
@@ -108,7 +108,7 @@ component accessors="true" {
         // (useful for debugging)
         var contentType = 'text';
         setting showdebugoutput='false';
-        variables.fw.renderData( contentType, rc.Summary);
+        variables.fw.renderData( contentType, rc.Summary );
     }
 }
 
