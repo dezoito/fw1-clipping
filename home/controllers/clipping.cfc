@@ -85,7 +85,7 @@ component accessors="true" {
         variables.fw.frameworkTrace( "<b>Delete Method on Clipping Controller</b>");
 
         // abort execution in case of CRSF attack (use UDF defined in lib.functions.cfc)
-        application.abortOnCSRFAttack( rc );
+        application.UDFs.abortOnCSRFAttack( rc );
 
         if (cgi.request_Method=="post"){
             // delete this object using the clippingService
