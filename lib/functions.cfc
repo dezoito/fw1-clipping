@@ -116,7 +116,7 @@ or
         function abrevia_nome_arquivo(texto, qtd)
         {
             if(len(texto) gt (qtd-7)){
-                var texto = mid(texto, "1", (qtd-7)) & "..." & right(upload_nome, 7);
+                var texto = mid(texto, "1", (qtd-7)) & "..." & right(texto, 7);
             }
             return texto;
         }
