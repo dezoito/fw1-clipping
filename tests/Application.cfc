@@ -13,6 +13,7 @@ component{
 	// any mappings go here, we create one that points to the root called test.
 	this.mappings[ "/test" ] = getDirectoryFromPath( getCurrentTemplatePath() );
 	this.mappings[ "/root" ] = ExpandPath( "../" );
+	writeOutput(this.mappings[ "/test" ] );
 
 
 

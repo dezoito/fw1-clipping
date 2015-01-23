@@ -135,20 +135,6 @@ or
         }
         this.abrevia_string = abrevia_string;
 
-        /**
-         * Brazilian Decimal format (needed after CFMX changed things)
-         */
-        function decimal_format_br(numero){
-            if(listfirst(Server.ColdFusion.ProductVersion) GTE "6"){
-                var texto = replace(decimalformat(numero), ".", "", "ALL");
-                var texto = replace(texto, ",",  ".", "ALL");
-            }else{
-                var texto = replace(decimalformat(numero), ",", "", "ALL");
-            }
-
-            return texto;
-        }
-        this.decimal_format_br = decimal_format_br;
 
         /**
          * define_virgula: use it in a query to separate records by commas (except the last)
