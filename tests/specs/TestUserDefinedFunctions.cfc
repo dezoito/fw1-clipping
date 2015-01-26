@@ -21,7 +21,7 @@
                 expect( UDFs.abrevia_string(strSample, 20) ).toBe("Neque porro quisquam...");
             });
 
-            it("Must NOT add elipses to a string shorter than N chars", function(){
+            it("Must NOT add ellipses to a string shorter than N chars", function(){
                 expect( UDFs.abrevia_string(strSample, 2000) ).toBe(strSample);
             });
         });
@@ -60,7 +60,7 @@
                 expect( UDFs.stripHTML(strSampleWithTags) ).toBe("This text contains tags and a line break");
             });
 
-            it("Must deal with mismatched tags", function(){
+            it("Must still strip mismatched tags", function(){
                 expect( UDFs.stripHTML(strSampleWithMismatchedTags) ).toBe("This text contains some weird tags and a line break");
             });
 
