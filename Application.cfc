@@ -32,7 +32,9 @@ component extends="org.corfield.framework" {
         reloadApplicationOnEveryRequest = true, //use this only in dev
         trace = false,
         // places where you don't want to load the framework
-        unhandledPaths = this.relativeRootPath & '/test-browser',
+        unhandledPaths = this.relativeRootPath & '/test-browser,'
+                            & this.relativeRootPath & '/tests,'
+        ,
 
         // cannot use below unless server understands rewriting
         // generateSES = true,
