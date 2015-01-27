@@ -1,28 +1,57 @@
 ﻿/**
  * Runs CRUD tests against a mock database
- *
+ * for this, we created a test database "dtb_clipping_test"
+ * and a datasource with the same name
  *
  */
 component extends="testbox.system.BaseSpec"{
 
     // executes before all suites
     function beforeAll(){
-       // How to dump application settings
-       // (http://www.bennadel.com/blog/1686-accessing-coldfusion-application-settings.htm)
-       // dump(application.getApplicationSettings());
+        // How to dump application settings
+        // dump(application.getApplicationSettings());
+
+        // reinitialise ORM for the application
+        ORMReload();
+
+        // initialize ORM, Services, create and populate the tables we need
+        clippingService = createObject("component", "root.home.model.services.clippingService");
+        str_default_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>Integer nec nulla ac justo viverra egestas.";
+
+        // add a few fake articles using ORM
+        rc = structNew();
+            for(i=1; i<=10; i=i+1){
+            rc.Clipping_id = 0;
+            rc.Clipping_titulo = createUUID();
+            rc.Clipping_texto = str_default_text;
+            rc.Clipping_link = "http://localhost/";
+            rc.Clipping_fonte = "This is the source for the article";
+            rc.Published = now(); // handle eurodates
+            Clipping = clippingService.save(rc);
+        }
     }
 
     // executes after all suites
-    function afterAll(){}
+    function afterAll(){
+        // destroy test data
+        var q = new Query();
+        q.setDatasource(application.datasource);
+        q.setSQL("
+            DROP TABLE tbl_clipping;
+        ");
+        q.execute();
+
+        // clear first level cache and remove any unsaved objects
+        ORMClearSession();
+    }
 
     // All suites go in here
     function run( testResults, testBox ){
 
-
         // --------- tests using SQL --------------
         describe("Can run SQL on the TEST DATABASE: " & application.datasource, function(){
 
-            queryObj = new query();
+            var queryObj = new query();
             queryObj.setDatasource(application.datasource);
 
             it("Must be able to access tables on the database", function(){
@@ -60,12 +89,12 @@ component extends="testbox.system.BaseSpec"{
         // --------- tests using ORM --------------
         describe("Using ORM", function(){
 
-            it("Clipping table must contain records", function(){
+            it("Clipping table must contain exactly 10 records", function(){
 
                 // run simple query
                 var totalhql = "select count(id) as total from clipping";
                 var result.count = ormExecuteQuery(totalhql, true);
-                expect( result.count ).toBeGT( 0 );
+                expect( result.count ).toBe( 10 );
             });
         });
 
