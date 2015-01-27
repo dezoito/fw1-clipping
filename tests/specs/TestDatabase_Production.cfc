@@ -7,17 +7,8 @@
  */
 component extends="testbox.system.BaseSpec" accessors="true"{
 
-
-
     // executes before all suites
-    function beforeAll(){
-        writeoutput("beforeAll() just ran, believe it or not!");
-
-       // How to dump application settings
-       // (http://www.bennadel.com/blog/1686-accessing-coldfusion-application-settings.htm)
-       // dump(application.getApplicationSettings());
-
-    }
+    function beforeAll(){}
 
     // executes after all suites
     function afterAll(){}
@@ -25,39 +16,45 @@ component extends="testbox.system.BaseSpec" accessors="true"{
     // All suites go in here
     function run( testResults, testBox ){
 
+        // set the string for PROD datasource
         prod_datasource = replace(application.datasource, "_test", "", "all");
 
         describe("Can run SQL on the PRODUCTION DATABASE: " & prod_datasource, function(){
 
             queryObj = new query();
             queryObj.setDatasource(prod_datasource);
-            queryObj.setName("qry_clipping");
-            // queryObj.addParam(name="clipping_id",value="0",cfsqltype="NUMERIC");
-            // result = queryObj.execute(sql="SELECT * FROM clipping WHERE clipping_id = :clipping_id");
-            result = queryObj.execute(sql="select count(clipping_id) as total from tbl_clipping");
-            qry_clipping = result.getResult();
-            metaInfo = result.getPrefix();
-            // queryObj.clearParams();
-            // writeDump(qry_clipping);
-            // writeDump(metaInfo);
 
-            it("Must return a valid query object", function(){
+            it("Must be able to access tables on the database", function(){
+                queryObj.setName("qry_show_tables");
+                result = queryObj.execute(sql="show tables ");
+                qry_show_tables = result.getResult();
+                metaInfo = result.getPrefix();
+
+                expect( qry_show_tables ).toBeTypeOf( "query" );
+            });
+
+            it("Must be able to query clipping table", function(){
+                queryObj.setName("qry_clipping");
+                result = queryObj.execute(sql="select count(clipping_id) as total from tbl_clipping");
+                qry_clipping = result.getResult();
+                metaInfo = result.getPrefix();
+
                 expect( qry_clipping ).toBeTypeOf( "query" );
             });
 
+            it("Must be able to query clipping table (using params)", function(){
+                queryObj.setName("qry_clipping");
+                queryObj.addParam(name="clipping_id",value="0",cfsqltype="NUMERIC");
+                result = queryObj.execute(sql="select count(clipping_id) as total from tbl_clipping WHERE clipping_id >= :clipping_id");
+                qry_clipping = result.getResult();
+                metaInfo = result.getPrefix();
+                queryObj.clearParams();
+                // dump(metaInfo);
+                // dump(qry_clipping);
+
+                expect( qry_clipping ).toBeTypeOf( "query" );
+            });
         });
-
-        // describe("Can connect to database", function(){
-
-        //     // run simple query
-        //     var totalhql = "select count(id) as total from clipping";
-        //     var result.count = ormExecuteQuery(totalhql, true);
-
-        //     it("Must not generate database connection errors", function(){
-        //         expect( result.count ).toBeGT( 0 );
-        //     });
-
-        // });
 
     }
 }
