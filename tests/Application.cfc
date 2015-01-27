@@ -5,11 +5,16 @@
  */
 component extends="../Application"{
 
+    // sets datasource to a test database
+    this.datasource = this.datasource & "_test";
+    application.datasource = this.datasource;
+
     this.ormsettings = {
         cfclocation="../home/model/beans",
     };
 
-    // set a datasource exclusively for tests
-    //this.datasource = this.datasource & "_tests";
+
+    this.triggerDataMember = true // so we can access properties directly (no need for getters and setters)
+
 
 }
