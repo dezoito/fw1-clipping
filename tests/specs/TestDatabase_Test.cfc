@@ -20,7 +20,7 @@ component extends="testbox.system.BaseSpec"{
 
         // add a few fake articles using ORM
         rc = structNew();
-            for(i=1; i<=10; i=i+1){
+        for(i=1; i<=10; i=i+1){
             rc.Clipping_id = 0;
             rc.Clipping_titulo = createUUID();
             rc.Clipping_texto = str_default_text;
@@ -72,6 +72,15 @@ component extends="testbox.system.BaseSpec"{
                 expect( qry_clipping ).toBeTypeOf( "query" );
             });
 
+            it("Querying clipping table should take less than 500ms", function(){
+                queryObj.setName("qry_clipping");
+                result = queryObj.execute(sql="select count(clipping_id) as total from tbl_clipping");
+                qry_clipping = result.getResult();
+                metaInfo = result.getPrefix();
+
+                expect( metainfo.executionTime ).toBeLt( 500 );
+            });
+
             it("Must be able to query clipping table (using params)", function(){
                 queryObj.setName("qry_clipping");
                 queryObj.addParam(name="clipping_id",value="0",cfsqltype="NUMERIC");
@@ -90,11 +99,23 @@ component extends="testbox.system.BaseSpec"{
         describe("Using ORM", function(){
 
             it("Clipping table must contain exactly 10 records", function(){
-
                 // run simple query
                 var totalhql = "select count(id) as total from clipping";
                 var result.count = ormExecuteQuery(totalhql, true);
                 expect( result.count ).toBe( 10 );
+            });
+
+            it("Must be able to load a single instance by ID", function(){
+                C = entityLoadByPk("clipping", 1);
+                expect( C ).toBeTypeOf( "Component" );
+            });
+
+            it("Must be able to delete instances", function(){
+                entityDelete(C);
+                ORMFlush();
+                var totalhql = "select count(id) as total from clipping";
+                var result.count = ormExecuteQuery(totalhql, true);
+                expect( result.count ).toBe( 9 );
             });
         });
 
