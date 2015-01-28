@@ -78,15 +78,16 @@ component {
      * deletes a single instance
      */
     public any function delete(numeric clipping_id) {
-            // Clipping = entityLoadByPk("clipping", arguments.clipping_id);
-            // EntityDelete(Clipping);
+            Clipping = entityLoadByPk("clipping", arguments.clipping_id);
+            EntityDelete(Clipping);
+            ORMFlush(); // need to add this to make sure it deletes
 
             // entityDelete wasn't working at all
             // delete by using HQL and parameters
-            hql = "delete from clipping where clipping_id = ?";
-            queryParameters = [arguments.clipping_id];
-            var r = ormExecuteQuery(hql, queryParameters);
-            return true;
+            // hql = "delete from clipping where clipping_id = ?";
+            // queryParameters = [arguments.clipping_id];
+            // var r = ormExecuteQuery(hql, queryParameters);
+            // return true;
     }
 
     /**
