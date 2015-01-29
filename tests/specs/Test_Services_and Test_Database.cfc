@@ -110,6 +110,14 @@ component extends="testbox.system.BaseSpec"{
                 expect( C ).toBeTypeOf( "Component" );
             });
 
+            it("Must be able to update an instance of a Clipping article", function(){
+                strNewTitle = "This is an updated title"
+                C.Clipping_titulo = strNewTitle;
+                ORMFlush();
+                C = entityLoadByPk("clipping", 1);
+                expect( C.Clipping_titulo ).toBe( strNewTitle );
+            });
+
             it("Must be able to delete instances", function(){
                 entityDelete(C);
                 ORMFlush();
