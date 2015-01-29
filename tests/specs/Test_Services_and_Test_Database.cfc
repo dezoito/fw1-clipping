@@ -127,5 +127,73 @@ component extends="testbox.system.BaseSpec"{
             });
         });
 
+        // --------- Services Layer Tests --------------
+        describe("The clippingService", function(){
+
+            it("Must be able to list clipping articles", function(){
+
+
+                // expect( isValidForm ).toBe( false );
+                // expect( rc.stErrors ).toBeTypeOf( "struct" );
+
+            });
+
+            it("Must validate input before inserting new clipping articles", function(){
+                rc = structNew();
+                rc.Clipping_id = 0;
+                rc.Clipping_titulo = "";
+                rc.Clipping_texto = "";
+                rc.Clipping_link = "ABRACADABRA";
+                rc.Clipping_fonte = ""; //this is OK
+                rc.Published = ""; // invalid empty date
+
+                // attempts validation with horrible data
+                isValidForm = clippingService.validate( rc );
+
+                expect( isValidForm ).toBe( false );
+                expect( rc.stErrors ).toBeTypeOf( "struct" );
+                expect( StructKeyExists(rc.stErrors, "clipping_titulo") ).toBe( true );
+                expect( StructKeyExists(rc.stErrors, "clipping_texto") ).toBe( true );
+                expect( StructKeyExists(rc.stErrors, "clipping_link") ).toBe( true );
+                expect( StructKeyExists(rc.stErrors, "clipping_fonte") ).toBe( false ); // empty is OK
+                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+            });
+
+            it("Must only allow valid dates in Eurodate format", function(){
+                rc = structNew();
+                rc.Clipping_id = 0;
+                rc.Clipping_titulo = "";
+                rc.Clipping_texto = "";
+                rc.Clipping_link = "";
+                rc.Clipping_fonte = "";
+
+                rc.Published = "01/01/2015"; // OK
+                isValidForm = clippingService.validate( rc );
+                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( false );
+
+                rc.Published = "30/02/2015"; // Invalid
+                isValidForm = clippingService.validate( rc );
+                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+
+                rc.Published = "01/15/2015"; // Invalid
+                isValidForm = clippingService.validate( rc );
+                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+
+                rc.Published = "01012015"; // Not Eurodate
+                isValidForm = clippingService.validate( rc );
+                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+
+                rc.Published = "2015/01/01"; // Not Eurodate
+                isValidForm = clippingService.validate( rc );
+                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+
+                rc.Published = "notevenadate"; // Not Eurodate
+                isValidForm = clippingService.validate( rc );
+                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+            });
+
+
+        });
+
     }
 }
