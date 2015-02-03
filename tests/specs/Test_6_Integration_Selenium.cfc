@@ -27,7 +27,7 @@ component extends="testbox.system.BaseSpec"{
     // executes after all suites
     function afterAll(){
         selenium.stopServer();
-        selenium.stop();
+        // selenium.stop();
 
     }
 

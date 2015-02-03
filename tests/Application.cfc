@@ -6,7 +6,7 @@
 component extends="../Application"{
 
     // sets datasource to a test database
-    this.datasource = this.datasource & "_test";
+    this.datasource = this.test_datasource;
     application.datasource = this.datasource;
 
     this.ormsettings = {

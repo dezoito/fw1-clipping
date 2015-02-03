@@ -33,7 +33,7 @@ component extends="testbox.system.BaseSpec"{
 
     // executes after all suites
     function afterAll(){
-        // destroy test data
+        // destroy test data (MAKE SURE YOU USE THE TEST DSN!!!)
         var q = new Query();
         q.setDatasource(application.datasource);
         q.setSQL("
@@ -42,8 +42,9 @@ component extends="testbox.system.BaseSpec"{
         q.execute();
 
         // clear first level cache and remove any unsaved objects
-        ORMClearSession();
         ORMFlush();
+        ORMClearSession();
+
     }
 
     // All suites go in here

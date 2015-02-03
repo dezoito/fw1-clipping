@@ -5,6 +5,7 @@ component extends="org.corfield.framework" {
     this.sessionManagement = true;
     this.sessionTimeout = createTimeSpan(0,2,0,0);
     this.dataSource = "dtb_clipping";
+    this.test_datasource = "dtb_clipping_test";
     this.ormEnabled = true;
     this.ormsettings = {
         // cfclocation="./model/beans",
@@ -73,6 +74,11 @@ component extends="org.corfield.framework" {
      */
     // ------------------------ CALLED WHEN APPLICATION STARTS ------------------------ //
     function setupApplication() {
+
+        // copy dsn names to application scope
+        application.datasource = this.datasource;
+        application.test_datasource = this.test_datasource;
+
         var bf = new framework.ioc( "model" );
         setBeanFactory( bf );
 
@@ -84,7 +90,7 @@ component extends="org.corfield.framework" {
         setSubsystemBeanFactory('home', homeBf);
         variables.frameworkTrace( "<b>Just setup Bean Factory</b>", 'homeBf');
 
-        application.datasource = this.datasource;
+
 
         // include UDF functions
         // the functions inside the CFC cann be referred by application.UDFs.functionName()
