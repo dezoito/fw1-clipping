@@ -27,7 +27,7 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
 --------------------------------------------------------------->
 
 <cfoutput>
-<form action="#buildURL('clipping.save')#" method="post" role="form" class="form-horizontal">
+<form action="#buildURL('clipping.save')#" method="post" role="form" class="form-horizontal" id="f_clipping">
 
     <input name="csrftoken" type="hidden" value="#session.csrfToken#">
 
