@@ -43,6 +43,7 @@ component extends="testbox.system.BaseSpec"{
 
         // clear first level cache and remove any unsaved objects
         ORMClearSession();
+        ORMFlush();
     }
 
     // All suites go in here
