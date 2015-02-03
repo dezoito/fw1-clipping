@@ -56,16 +56,29 @@ component extends="testbox.system.BaseSpec"{
                 expect( selenium.isTextPresent("Published:") ).toBe( true );
             });
 
-            it("The app must validade form entry", function(){
+            it("The app must validade form entry (leave article TEXT empty)", function(){
                 selenium.open(browserURL & "?action=clipping.form");
                 selenium.waitForPageToLoad(timeout);
                 selenium.type("id=clipping_titulo", "test");
                 selenium.type("id=clipping_texto", "");
                 selenium.click("id=btn_save");
                 selenium.waitForPageToLoad(timeout);
-                // didn't fill all the required fileds...should return with error
+                // didn't fill all the required fields...should return with error
                 expect( selenium.isTextPresent("Your article could not be posted!") ).toBe( true );
             });
+
+            // it("The app must validade form entry (leave article only TITLE empty", function(){
+            //     selenium.open(browserURL & "?action=clipping.form");
+            //     selenium.waitForPageToLoad(timeout);
+            //     selenium.type("id=clipping_titulo", "");
+
+            //     // Have to use Javascript to add text to CKEditor
+            //     selenium.type("id=clipping_texto", "");
+            //     selenium.click("id=btn_save");
+            //     selenium.waitForPageToLoad(timeout);
+            //     // didn't fill all the required fields...should return with error
+            //     expect( selenium.isTextPresent("Your article could not be posted!") ).toBe( true );
+            // });
 
         });
     }
