@@ -3,7 +3,6 @@
  */
 component {
 
-
     /**
      * validates formfields before saving object
      * @param   struct rc

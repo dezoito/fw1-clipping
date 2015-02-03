@@ -95,6 +95,7 @@ component extends="testbox.system.BaseSpec"{
             });
         });
 
+
         // --------- tests using ORM --------------
         describe("Using ORM", function(){
 
@@ -127,15 +128,41 @@ component extends="testbox.system.BaseSpec"{
             });
         });
 
+
         // --------- Services Layer Tests --------------
         describe("The clippingService", function(){
 
-            it("Must be able to list clipping articles", function(){
+            it("Must return a struct with an array clipping objects", function(){
+                clippingList = clippingService.list();
+                // dump(clippingList);
+                expect( clippingList.count ).toBe( 9 ); // we deleted one record already
+                expect( clippingList ).toBeTypeOf( "struct" );
+                expect( clippingList.data ).toBeTypeOf( "array" );
+                expect( clippingList.data[1].getClipping_texto()).toBe( str_default_text );
+            });
 
+            it("Must be able to update records ", function(){
 
-                // expect( isValidForm ).toBe( false );
-                // expect( rc.stErrors ).toBeTypeOf( "struct" );
+                // get a single article
+                Clipping = clippingService.getClipping(2);
 
+                //define new data for the update
+                rc = structNew();
+                rc.Clipping_id = Clipping.getClipping_id();
+                rc.Clipping_titulo = "LEGLOCK";
+                rc.Clipping_texto = "REVERSE";
+                rc.Clipping_link = "ABRACADABRA";
+                rc.Clipping_fonte = ""; //this is OK
+                rc.Published = "01/01/2015"; // invalid empty date
+
+                // update the instance with new data
+                clippingService.save( rc );
+
+                // requery the article to see if data changed
+                updatedClipping = clippingService.getClipping(2);
+
+                expect( updatedClipping.getClipping_texto()).toBe( "REVERSE" );
+                expect( updatedClipping.getClipping_titulo()).toBe( "LEGLOCK" );
             });
 
             it("Must validate input before inserting new clipping articles", function(){
@@ -169,7 +196,7 @@ component extends="testbox.system.BaseSpec"{
 
                 rc.Published = "01/01/2015"; // OK
                 isValidForm = clippingService.validate( rc );
-                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( false );
+                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( false );// this one is ok
 
                 rc.Published = "30/02/2015"; // Invalid
                 isValidForm = clippingService.validate( rc );
