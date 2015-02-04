@@ -7,7 +7,7 @@ component extends="../Application"{
 
     // sets datasource to a test database
     this.datasource = this.test_datasource;
-    application.datasource = this.datasource;
+    application.datasource = this.test_datasource;
 
     this.ormsettings = {
         dbcreate="update", // update database tables only
