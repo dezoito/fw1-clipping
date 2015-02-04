@@ -113,11 +113,18 @@ component extends="testbox.system.BaseSpec"{
                 selenium.click("link=" & str_random_title);
                 selenium.waitForPageToLoad(timeout);
                 expect( selenium.isElementPresent("id=f_clipping") ).toBe( true );
+                expect( selenium.isElementPresent("id=btn_delete") ).toBe( true );
                 // test to see if the "title" field has the current article's title
                 expect( selenium.getValue( "id=clipping_titulo" ) ).toBe( str_random_title );
-
             });
 
+            it("Should be able to delete an article", function(){
+                selenium.click("id=btn_delete");
+                selenium.click("class=confirm"); // "confirm" buttom
+                selenium.waitForPageToLoad(timeout);
+                // the random titled article should NOT be on the list
+                expect( selenium.isTextPresent(str_random_title) ).toBe( false );
+            });
         });
     }
 }
