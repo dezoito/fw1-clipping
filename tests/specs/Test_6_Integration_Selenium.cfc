@@ -17,12 +17,13 @@ component extends="testbox.system.BaseSpec"{
         browserURL = "http://#CGI.HTTP_HOST#/fw1/clipping";
         // set browser to be used for testing
         browserStartCommand = "*googlechrome";
+        // browserStartCommand = "*firefox";
         // create a new instance of CFSelenium
         selenium = createobject("component", "CFSelenium.selenium").init();
         // start Selenium server
         selenium.start(browserUrl, browserStartCommand);
         // set timeout period to be used when waiting for page to load
-        timeout = 120000;
+        timeout = 40000;
         // rebuild current App
         httpService = new http();
         httpService.setUrl(browserURL & "/index.cfm?rebuild=true");
@@ -120,7 +121,8 @@ component extends="testbox.system.BaseSpec"{
 
             it("Should be able to delete an article", function(){
                 selenium.click("id=btn_delete");
-                selenium.click("class=confirm"); // "confirm" buttom
+                selenium.click("css=button.confirm"); // clicks the sweet-alert "confirm" buttom
+                // selenium.open(browserURL); // needed when using firefox
                 selenium.waitForPageToLoad(timeout);
                 // the random titled article should NOT be on the list
                 expect( selenium.isTextPresent(str_random_title) ).toBe( false );
