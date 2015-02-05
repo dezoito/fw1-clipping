@@ -120,6 +120,7 @@ component extends="testbox.system.BaseSpec"{
             });
 
             it("Should be able to delete an article", function(){
+                // uses window state from previous test
                 selenium.click("id=btn_delete");
                 selenium.click("css=button.confirm"); // clicks the sweet-alert "confirm" buttom
                 // selenium.open(browserURL); // needed when using firefox

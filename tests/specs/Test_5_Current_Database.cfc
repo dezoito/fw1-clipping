@@ -1,9 +1,10 @@
 ﻿/**
- * This test suit makes simple tests against the production database
+ * This test suit makes simple tests against the "current" database
+ * (production or dev, depending on where you are hosting this test)
  * IE: Connections and simple queries
- * It does not change any data.
+ * It does NOT change any data.
  *
- * See TestDatabase_Test for tests involving CRUD operations.
+ * See other tests for CRUD operations.
  */
 component extends="testbox.system.BaseSpec" accessors="true"{
 
@@ -51,7 +52,6 @@ component extends="testbox.system.BaseSpec" accessors="true"{
                 queryObj.clearParams();
                 // dump(metaInfo);
                 // dump(qry_clipping);
-
                 expect( qry_clipping ).toBeTypeOf( "query" );
             });
         });

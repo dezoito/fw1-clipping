@@ -1,5 +1,5 @@
 ﻿/**
- * Runs CRUD tests against a mock database
+ * Runs CRUD tests against a testing database
  * for this, we created a test database "dtb_clipping_test"
  * and a datasource with the same name
  *
