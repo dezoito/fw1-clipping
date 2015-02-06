@@ -17,13 +17,13 @@ component extends="testbox.system.BaseSpec" accessors="true"{
     // All suites go in here
     function run( testResults, testBox ){
 
-        // set the string for PROD datasource
-        prod_datasource = replace(application.datasource, "_test", "", "all");
+        // set the string for current datasource
+        current_datasource = replace(application.datasource, "_test", "", "all");
 
-        describe("Can run SQL on the PRODUCTION DATABASE: " & prod_datasource, function(){
+        describe("Can run SQL on the CURRENT DATABASE: " & current_datasource, function(){
 
             queryObj = new query();
-            queryObj.setDatasource(prod_datasource);
+            queryObj.setDatasource(current_datasource);
 
             it("Must be able to access tables on the database", function(){
                 queryObj.setName("qry_show_tables");

@@ -1,4 +1,7 @@
-﻿component extends="testbox.system.BaseSpec"{
+﻿/**
+ * Tests User Defined Functions (in lib/functions.cfc)
+ */
+component extends="testbox.system.BaseSpec"{
 
     // executes before all suites
     function beforeAll(){

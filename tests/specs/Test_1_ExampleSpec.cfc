@@ -1,4 +1,7 @@
-﻿component extends="testbox.system.BaseSpec"{
+﻿/**
+ * This is justa suite containing two very simple tests
+ */
+component extends="testbox.system.BaseSpec"{
 
     // executes before all suites
     function beforeAll(){}
