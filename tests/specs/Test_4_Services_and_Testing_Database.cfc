@@ -20,7 +20,7 @@ component extends="testbox.system.BaseSpec"{
 
         // add a few fake articles using ORM
         rc = structNew();
-        for(i=1; i<=10; i=i+1){
+        for(i=1; i<=20; i=i+1){
             rc.Clipping_id = 0;
             rc.Clipping_titulo = createUUID();
             rc.Clipping_texto = str_default_text;
@@ -101,11 +101,11 @@ component extends="testbox.system.BaseSpec"{
         // --------- tests using ORM --------------
         describe("Using ORM", function(){
 
-            it("Clipping table must contain exactly 10 records", function(){
+            it("Clipping table must contain exactly 20 records", function(){
                 // run simple query
                 var totalhql = "select count(id) as total from clipping";
                 var result.count = ormExecuteQuery(totalhql, true);
-                expect( result.count ).toBe( 10 );
+                expect( result.count ).toBe( 20 );
             });
 
             it("Must be able to load a single instance by ID", function(){
@@ -126,7 +126,7 @@ component extends="testbox.system.BaseSpec"{
                 ORMFlush();
                 var totalhql = "select count(id) as total from clipping";
                 var result.count = ormExecuteQuery(totalhql, true);
-                expect( result.count ).toBe( 9 );
+                expect( result.count ).toBe( 19 );
             });
         });
 
@@ -137,7 +137,7 @@ component extends="testbox.system.BaseSpec"{
             it("Must return a struct with an array clipping objects", function(){
                 clippingList = clippingService.list();
                 // dump(clippingList);
-                expect( clippingList.count ).toBe( 9 ); // we deleted one record already
+                expect( clippingList.count ).toBe( 19 ); // we deleted one record already
                 expect( clippingList ).toBeTypeOf( "struct" );
                 expect( clippingList.data ).toBeTypeOf( "array" );
                 expect( clippingList.data[1].getClipping_texto()).toBe( str_default_text );

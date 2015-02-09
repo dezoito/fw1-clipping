@@ -76,7 +76,7 @@
 
 
 
-        <!--- Display the pagination buttons --->
+        <!--- Display the pagination buttons using bootstrap CSS classes --->
         <ul class="pagination">
           <!--- Show a "back button" that link to the smallest number page - 1 --->
           <cfif variables.boolShowBackButton>
