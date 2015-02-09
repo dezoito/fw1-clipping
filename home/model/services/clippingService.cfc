@@ -90,14 +90,14 @@ component {
     }
 
     /**
-     * returns an array of Clipping instances
+     * returns an struct with an array of Clipping instances (paginated) and the total record count
      */
-    public any function list(numeric start=1, numeric perpage=application.recordsPerPage) {
+    public any function list(numeric page=1, numeric perpage=application.recordsPerPage) {
         var result = {};
         var hql = "from clipping order by clipping_id desc";
         var result.data = ormExecuteQuery(hql, false, {
             maxResults=arguments.perpage,
-            offset=arguments.start-1
+            offset=( arguments.page - 1 ) * application.recordsPerPage
         });
         var totalhql = "select count(id) as total from clipping";
         var result.count = ormExecuteQuery(totalhql, true);

@@ -78,7 +78,7 @@ component extends="org.corfield.framework" {
         // copy dsn names to application scope
         application.datasource = this.datasource;
         application.test_datasource = this.test_datasource;
-        application.recordsPerPage = 4 //pagination setting, used in all services and tests
+        application.recordsPerPage = 12 //pagination setting, used in all services and tests
 
         var bf = new framework.ioc( "model" );
         setBeanFactory( bf );

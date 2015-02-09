@@ -9,22 +9,6 @@
 <cfoutput>
     <cfif rc.qry_clipping.count gt 0>
 
-      <!---    pagination stuff     --->
-      <!---    see Ray Camdem's work at: http://www.raymondcamden.com/2012/06/22/ColdFusion-and-Pagination-Six-Years-Later     --->
-      <cfparam name="rc.start" default="1">
-      <cfif not isNumeric(rc.start)
-            or rc.start lt 1
-            or rc.start gt rc.qry_clipping.count
-            or round(rc.start) neq rc.start>
-          <cfset rc.start = 1>
-      </cfif>
-
-      <cfset totalPages = ceiling(rc.qry_clipping.count / application.recordsPerPage)>
-      <cfset thisPage = ceiling(rc.start / application.recordsPerPage)>
-
-      You are on page #thisPage# of #totalPages# (#rc.qry_clipping.count# records).
-      <p>
-
 
         <cfloop index="Clipping" array="#rc.qry_clipping.data#">
             <p>
@@ -43,49 +27,88 @@
             </p>
         </cfloop>
 
-        <!---    end pagination     --->
-        <p>
-        [
-        <cfif rc.start gt 1>
-            <cfset link = cgi.script_name & "?start=" & (rc.start - application.recordsPerPage)>
-            <cfoutput><a href="#link#">Previous Page</a></cfoutput>
-        <cfelse>
-            Previous Page
-        </cfif>
-        /
-        <cfif (rc.start + application.recordsPerPage - 1) lt rc.qry_clipping.count>
-            <cfset link = cgi.script_name & "?start=" & (rc.start + application.recordsPerPage)>
-            <cfoutput><a href="#link#">Next Page</a></cfoutput>
-        <cfelse>
-            Next Page
-        </cfif>
-        ]
-        </p>
+        <!---    pagination stuff     --->
+        <!---    see https://gist.github.com/steinbring/4315198     --->
+        <!--- How many pages should you link to at any one time? --->
+        <cfset intPagesToLinkTo = 5>
+        <!--- How many items are you displaying per page? --->
+        <cfset intItemsPerPage = application.recordsPerPage>
 
-<!-------------------------------------------------------------
+        <!--- How many items do you need to display, across all pages. --->
+        <cfset intNumberOfTotalItems = rc.qry_clipping.count>
+        <!--- What is the current page you are on? --->
+        <cfif isdefined("url.page")>
+          <cfset intCurrentPage = val(url.page)>
+        <cfelse>
+          <cfset intCurrentPage = 1>
+        </cfif>
+
+        <!--- Find the closest numbers to intCurrentPage that is divisible by intPagesToLinkTo --->
+        <cfset intMaxLinkToShow = ceiling(variables.intCurrentPage/intPagesToLinkTo)*intPagesToLinkTo>
+        <cfset intMinLinkToShow = (int(variables.intCurrentPage/intPagesToLinkTo)*intPagesToLinkTo)+1>
+        <!--- Is intMaxLinkToShow equal to the unadjusted intMinLinkToShow value? If so, reset intMinLinkToShow to be where it should be. --->
+        <cfif intMaxLinkToShow eq (int(variables.intCurrentPage/intPagesToLinkTo)*intPagesToLinkTo)>
+          <cfset intMinLinkToShow = intMaxLinkToShow - (intPagesToLinkTo - 1)>
+        </cfif>
+        <!--- Is intMaxLinkToShow bigger than we need to shouw intNumberOfTotalItems?  If so, reset it. Use ceiling() to round it up. --->
+        <cfif intMaxLinkToShow gt intNumberOfTotalItems / intItemsPerPage>
+          <cfset intMaxLinkToShow = ceiling(intNumberOfTotalItems / intItemsPerPage)>
+        </cfif>
+        <!--- Should I show the back button? --->
+        <cfif intMaxLinkToShow - intPagesToLinkTo LTE 0>
+          <cfset boolShowBackButton = 0>
+        <cfelse>
+          <cfset boolShowBackButton = 1>
+        </cfif>
+        <!--- Should I show the forward button? --->
+        <cfif ceiling(intNumberOfTotalItems / intItemsPerPage) lte intMaxLinkToShow>
+          <cfset boolShowForwardButton = 0>
+        <cfelse>
+          <cfset boolShowForwardButton = 1>
+        </cfif>
+        <!--- What items should I show on the page? --->
+        <cfset intMinItemsToShow = (intItemsPerPage * (intCurrentPage - 1))+ 1>
+        <cfset intMaxItemsToShow = intMinItemsToShow + intItemsPerPage - 1>
+        <!--- Have you reached the maximum number of items to show? --->
+        <cfif intMaxItemsToShow gt intNumberOfTotalItems>
+          <cfset intMaxItemsToShow = intNumberOfTotalItems>
+        </cfif>
+
+
+
+        <!--- Display the pagination buttons --->
         <ul class="pagination">
-
-          <cfif thisPage gt 1>
-            <li><a href="#cgi.script_name#">First page</a></li>
-            <li><a href="##">&laquo;</a></li>
+          <!--- Show a "back button" that link to the smallest number page - 1 --->
+          <cfif variables.boolShowBackButton>
+              <li><a href="?page=<cfoutput>#intMinLinkToShow-1#</cfoutput>">&lt;</a></li>
           </cfif>
 
-          <li><a href="##">1</a></li>
-          <li><a href="##">2</a></li>
-          <li><a href="##">3</a></li>
-          <li><a href="##">4</a></li>
-          <li><a href="##">5</a></li>
+          <!--- Loop through and create links to intPagesToLinkTo pages --->
+          <cfloop from="#variables.intMinLinkToShow#" to="#variables.intMaxLinkToShow#" index="i">
 
-          <cfif thispage lt totalpages>
-            <li><a href="##">&raquo;</a></li>
-            <li><a href="##">Last page</a></li>
+              <cfoutput>
+                <cfif intCurrentPage eq i>
+                  <li class="active"><a href="##">#i#</a></li>
+                <cfelse>
+                  <li><a href="?page=#i#">#i#</a></li>
+                </cfif>
+              </cfoutput>
+
+          </cfloop>
+
+          <!--- Show a "forward button" that links to the largest number page + 1 --->
+          <cfif variables.boolShowForwardButton>
+              <li><a href="?page=<cfoutput>#intMaxLinkToShow+1#</cfoutput>">&gt;</a></li>
           </cfif>
+
         </ul>
---------------------------------------------------------------->
 
-    <cfelse>
+    <cfelse><!---    nothing to display     --->
+
         <p>
             There are no articles currently.
         </p>
     </cfif>
 </cfoutput>
+
+

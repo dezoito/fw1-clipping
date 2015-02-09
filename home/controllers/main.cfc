@@ -22,12 +22,12 @@ component accessors="true" {
         fw.frameworkTrace( "<b>Running query to list articles</b>");
 
         // default starting record
-        param name="rc.start" default="1";
-        if (!isNumeric(rc.start) or rc.start lt 1 or round(rc.start) neq rc.start){
-            rc.start = 1;
+        param name="rc.page" default="1";
+        if (!isNumeric(rc.page) or rc.page lt 1 or round(rc.page) neq rc.page){
+            rc.page = 1;
         }
 
-        rc.qry_clipping = variables.clippingService.list(start=rc.start, perpage=application.recordsPerPage); // returns a struct
+        rc.qry_clipping = variables.clippingService.list(page=rc.page, perpage=application.recordsPerPage); // returns a struct
     }
 
     /**
