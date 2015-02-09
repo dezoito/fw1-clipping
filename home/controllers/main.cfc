@@ -20,8 +20,14 @@ component accessors="true" {
      */
     function default( struct rc ) {
         fw.frameworkTrace( "<b>Running query to list articles</b>");
-        // rc.qry_clipping = variables.clippingService.getAll(); // returns query
-        rc.qry_clipping = variables.clippingService.list(perpage=application.recordsPerPage); // returns a struct
+
+        // default starting record
+        param name="rc.start" default="1";
+        if (!isNumeric(rc.start) or rc.start lt 1 or round(rc.start) neq rc.start){
+            rc.start = 1;
+        }
+
+        rc.qry_clipping = variables.clippingService.list(start=rc.start, perpage=application.recordsPerPage); // returns a struct
     }
 
     /**
