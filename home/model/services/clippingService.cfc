@@ -92,7 +92,7 @@ component {
     /**
      * returns an array of Clipping instances
      */
-    public any function list(numeric start=1, numeric perpage=10) {
+    public any function list(numeric start=1, numeric perpage=application.recordsPerPage) {
         var result = {};
         var hql = "from clipping order by clipping_id desc";
         var result.data = ormExecuteQuery(hql, false, {

@@ -143,6 +143,12 @@ component extends="testbox.system.BaseSpec"{
                 expect( clippingList.data[1].getClipping_texto()).toBe( str_default_text );
             });
 
+            it("Must return #application.recordsPerPage# articles per page", function(){
+                clippingList = clippingService.list();
+                // dump(clippingList);
+                expect( arrayLen(clippingList.data) ).toBe( application.recordsPerPage ); // we deleted one record already
+            });
+
             it("Must be able to update records ", function(){
 
                 // get a single article
