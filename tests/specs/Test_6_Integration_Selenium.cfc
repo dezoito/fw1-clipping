@@ -23,7 +23,7 @@ component extends="testbox.system.BaseSpec"{
         // start Selenium server
         selenium.start(browserUrl, browserStartCommand);
         // set timeout period to be used when waiting for page to load
-        timeout = 40000;
+        timeout = 120000;
         // rebuild current App
         httpService = new http();
         httpService.setUrl(browserURL & "/index.cfm?rebuild=true");

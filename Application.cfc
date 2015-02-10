@@ -18,6 +18,7 @@ component extends="org.corfield.framework" {
     };
 
     this.mappings["/root"] = getDirectoryFromPath(getCurrentTemplatePath());
+    this.customTagPaths = this.mappings["/root"] & "customtags"
     this.triggerDataMember = true // so we can access properties directly (no need for getters and setters)
 
     // calculates relative path to application root
