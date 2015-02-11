@@ -18,29 +18,31 @@
 
         <!---    display the records for this current page     --->
         <cfloop index="Clipping" array="#rc.qry_clipping.data#">
-            <p>
+            <div>
             <b><a href="#buildURL(action = 'clipping.form', queryString = 'clipping_id=' & Clipping.getClipping_Id())#">#Clipping.getClipping_titulo()#</a></b>
               | <a href="javascript: ajaxClippingForm('#buildURL('clipping.ajaxForm')#',#Clipping.getClipping_Id()#);">Edit (Ajax)</a>
-              | <a href="javascript: ajaxViewSummary('#buildURL('clipping.summary')#',#Clipping.getClipping_Id()#);">View Summary (Ajax)</a>
+              | <a class="summaryLink" href="javascript: ajaxViewSummary('#buildURL('clipping.summary')#',#Clipping.getClipping_Id()#);">View Summary (Ajax)</a>
               |
-            <br/>
+            </div>
+
+            <div>
             <font class="text-muted small">#dateFormat(Clipping.getCreated(), "mmmm d, yyyy")# at #timeFormat(Clipping.getCreated(), "hh:mm")#</font>
-            <br/>
+            </div>
 
             <!---    shows a short preview of text (HTML tags removed)     --->
-            #application.UDFs.abrevia_string(application.UDFs.stripHTML(Clipping.getClipping_texto()), 200)#
-            <br/><br/>
-
-            </p>
+            <div class="previewDiv">
+              #application.UDFs.abrevia_string(application.UDFs.stripHTML(Clipping.getClipping_texto()), 200)#
+            </div>
+            <br/>
         </cfloop>
 
-        </cf_pagination_with_orm>
+        </cf_pagination_with_orm><!---    display pagination links     --->
 
 
     <cfelse><!---    nothing to display     --->
 
         <p>
-            There are no articles currently.
+            There are no articles to display.
         </p>
     </cfif>
 </cfoutput>

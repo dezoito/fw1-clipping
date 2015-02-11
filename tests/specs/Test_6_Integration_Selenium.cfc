@@ -42,6 +42,9 @@ component extends="testbox.system.BaseSpec"{
     // All suites go in here
     function run( testResults, testBox ){
 
+        //----------------------------------------------------------------------
+        // Testing main page
+        //----------------------------------------------------------------------
         describe("Loading home page", function(){
 
             it("Should load and have the correct title", function(){
@@ -52,6 +55,76 @@ component extends="testbox.system.BaseSpec"{
 
         });
 
+        describe("Testing a single article", function(){
+
+            it("Should NOT have tags in the preview description", function(){
+                // use the page loaded on the previous test
+                // get contents from first article preview (use xpath to find it)
+                // note: if we were NOT using getText(), the actual xpath expression
+                // would be "xpath=(//div[@class='previewDiv'])[1]/text()"
+                printedPreview = selenium.getText( "xpath=(//div[@class='previewDiv'])[1]" );
+                expect( printedPreview ).toBe( application.UDFs.stripHTML(printedPreview) );
+            });
+
+            it("AND that preview should have less than 200 chars", function(){
+                expect( len(printedPreview) ).toBeLTE( 200 );
+            });
+
+        });
+
+        //----------------------------------------------------------------------
+        // Testing summary service
+        // This is an external python based API running on port 5000,
+        // that might not be running during the tests.
+        // I believe this is a good way to simulate external dependencies
+        //----------------------------------------------------------------------
+        describe("Testing access to the summary service", function(){
+
+            // sending a string to the summary service
+            cfhttp(url='http://localhost:5000/ajax_resumo' method='post' result='st_summary'){
+                cfhttpparam (type="formfield" name = "texto" value = "Some Test String");
+            }
+
+            // is the service working? (store the answer in a bool var)
+            var boolIsServiceWorking = (structKeyExists(st_summary, "status_code") and st_summary["status_code"] is 200);
+
+            it("This app should be able to obtain a response from the summary service", function(){
+                expect( boolIsServiceWorking ).ToBeTrue();
+            });
+
+            // test that the app shows the correct response whether summaries are working or not
+            if(boolIsServiceWorking){
+                it("The service is available, it should return a summarized string", function(){
+                    selenium.click("xpath=(//a[@class='summaryLink'])[1]");
+                    summaryText = selenium.getText( "xpath=(//div[@class='modal-body'])[1]" );
+                    expect( summaryText ).ToBeString();
+                    expect( summaryText ).notToInclude( "There was an error trying to use summary service :'(" );
+                });
+
+            }else{
+                // service unnavailable
+                it("The service is NOT available, it should return a pre-defined error message", function(){
+                    selenium.click("xpath=(//a[@class='summaryLink'])[1]");
+                    summaryText = selenium.getText( "xpath=(//div[@class='modal-body'])[1]" );
+                    expect( summaryText ).ToBe( "There was an error trying to use summary service :'(" );
+                });
+            }
+
+            it("Should NOT have tags in the preview description", function(){
+
+                printedPreview = selenium.getText( "xpath=(//div[@class='previewDiv'])[1]" );
+                expect( printedPreview ).toBe( application.UDFs.stripHTML(printedPreview) );
+            });
+
+            it("AND that preview should have less than 200 chars", function(){
+                expect( len(printedPreview) ).toBeLTE( 200 );
+            });
+
+        });
+
+        //----------------------------------------------------------------------
+        // Testing forms
+        //----------------------------------------------------------------------
         describe("Testing the clipping form:", function(){
 
             it("Clicking add an article link should load the form page", function(){
