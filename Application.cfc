@@ -14,7 +14,7 @@ component extends="org.corfield.framework" {
         eventhandling="False",
         eventhandler="root.home.model.beans.eventhandler",
         logsql="true",
-        flushAtRequestEnd = false
+        flushAtRequestEnd = "false"
     };
 
     this.mappings["/root"] = getDirectoryFromPath(getCurrentTemplatePath());

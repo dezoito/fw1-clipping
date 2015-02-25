@@ -189,6 +189,7 @@ component extends="testbox.system.BaseSpec"{
                 expect( selenium.isElementPresent("id=f_clipping") ).toBe( true );
                 expect( selenium.isElementPresent("id=btn_delete") ).toBe( true );
                 // test to see if the "title" field has the current article's title
+                // created in beforeAll()
                 expect( selenium.getValue( "id=clipping_titulo" ) ).toBe( str_random_title );
             });
 
