@@ -38,31 +38,27 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/fw1/clipping">Clippings</a>
+          <a class="navbar-brand" href="/fw1/clipping">FW/1 Clipping App</a>
         </div>
         <div class="collapse navbar-collapse">
 
-          <form class="navbar-form navbar-left" role="form" >
-            <div class="form-group right-inner-addon">
-              <i class="glyphicon glyphicon-search"></i>
-              <input type="text" class="form-control" name="q" id="q"
-               placeholder="Search" onkeyup="javascript: ajaxBusca();"/>
-            </div>
-          </form>
+          <!---    <form class="navbar-form navbar-left" role="form" >
+                      <div class="form-group right-inner-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <input type="text" class="form-control" name="q" id="q"
+                         placeholder="Search" onkeyup="javascript: ajaxBusca();"/>
+                      </div>
+                    </form>     --->
 
           <ul class="nav navbar-nav navbar-right">
-            <!-- dropdown relatórios-->
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Options <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Something</a></li>
-              </ul>
-            </li>
+            <!-- dropdown -->
+            <!---    <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Options <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Something</a></li>
+                          </ul>
+                        </li>     --->
 
-            <!-- Login/logout -->
-<!-------------------------------------------------------------
-        Display login or logout links
---------------------------------------------------------------->
 
           </ul>
         </div><!--/.nav-collapse -->
@@ -74,37 +70,19 @@
         <div class="row-fluid">
             <div class="col-sm-1" id="div_lefttCol">
             <br/>
-            <!-------------------------------------------------------------
 
-                <div class="well" id="divMenuCategorias"> <!-- class="well sidebar-nav" -->
-                    <div id="divListaCategorias">
-
-
-                    </div>
-                </div><!--/.well -->
-
-            --------------------------------------------------------------->
             </div><!--/ right col-->
 
             <!-- ********************  main body ********************  -->
             <div class="col-sm-8" id="div_body">
 
-                <h2><strong>FW/1 Clipping App</strong></h2>
+                <h2><strong>Articles and News Clippings</strong></h2>
 
                 <cfoutput>#body#</cfoutput>
 
 
             </div>
             <!-- ********************  /main body ********************  -->
-
-              <!-- menu lateral direito-->
-<!-------------------------------------------------------------
-                <!---    only for authenticated users     --->
-                <div class="col-sm-3" id="div_righttCol">
-                  <p>
-                </div>
-
---------------------------------------------------------------->
 
         </div><!--/row-->
     </div><!--/.fluid-container-->
