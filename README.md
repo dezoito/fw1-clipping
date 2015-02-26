@@ -5,14 +5,24 @@ I created this app as an exercise to learn the [FW/1 Framework](https://github.c
 
 Here's some of the topics I tried to cover:
 
-### Project Structure
+#### Project Structure
+I decided to use subsystems, so the main app's logic is inside the **/home** folder (which is the default subsystem).
+Notice that I added these folders to the project's root:
 
-### Forms and Validation
+**/lib** - Stores User Defined Functions and UDF libraries
 
-### Use of UDF Libraries
+**/setup** - Contains the SQL script for database creation
 
-### Use of static assets
+**/static** - This is where I keep JS, CSS and images
 
-### Accessing an External Service
+**/tests** - Self explanatory
 
-### BDD Testing
+#### Forms and Validation
+
+#### Use of UDF Libraries
+
+#### Use of static assets
+
+#### Accessing an External Service
+
+#### BDD Testing
