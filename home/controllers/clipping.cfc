@@ -37,22 +37,6 @@ component accessors="true" {
     }
 
     /**
-     * Generates clipping form
-     * either for a new one, or for an update
-     * to be displayed in a modal window
-     */
-    function ajaxForm (struct rc){
-        // disable trace and debug info
-        variables.fw.disableFrameworkTrace();
-        setting showdebugoutput="false";
-
-        // builds the form just like the non-ajax version
-        return form( rc );
-
-        // will render clipping.ajaxform view from here...
-    }
-
-    /**
      * saves an article
      */
     function save( struct rc ) {

@@ -1,7 +1,6 @@
 <!-- home::views/default -->
 <cfoutput>
   | <a href="#buildURL('clipping.form')#">Add an Article</a>
-  | <a href="javascript: ajaxClippingForm('#buildURL('clipping.ajaxForm')#');">Add an Article (Ajax)</a>
   |
   <br/>
 </cfoutput>
@@ -19,9 +18,7 @@
         <!---    display the records for this current page     --->
         <cfloop index="Clipping" array="#rc.qry_clipping.data#">
             <div>
-            <b><a href="#buildURL(action = 'clipping.form', queryString = 'clipping_id=' & Clipping.getClipping_Id())#">#Clipping.getClipping_titulo()#</a></b>
-              <!---    | <a href="javascript: ajaxClippingForm('#buildURL('clipping.ajaxForm')#',#Clipping.getClipping_Id()#);">Edit (Ajax)</a>     --->
-              | <a class="summaryLink" href="javascript: ajaxViewSummary('#buildURL('clipping.summary')#',#Clipping.getClipping_Id()#);">View Summary (Ajax)</a>
+            <b><a href="#buildURL(action = 'clipping.form', queryString = 'clipping_id=' & Clipping.getClipping_Id())#">#Clipping.getClipping_titulo()#</a></b>              | <a class="summaryLink" href="javascript: ajaxViewSummary('#buildURL('clipping.summary')#',#Clipping.getClipping_Id()#);">View Summary (Ajax)</a>
               |
             </div>
 

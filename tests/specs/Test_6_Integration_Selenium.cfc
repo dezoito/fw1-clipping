@@ -4,7 +4,6 @@
  *
  * Visit the following links for references:
  * https://github.com/teamcfadvance/CFSelenium
- * http://www.thoughtdelimited.org/thoughts/post.cfm/quick-guide-for-installing-and-running-cfselenium
  *
  * see this for a complete test method reference
  * https://github.com/teamcfadvance/CFSelenium/blob/master/selenium.cfc
