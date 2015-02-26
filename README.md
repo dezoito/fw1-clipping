@@ -10,7 +10,7 @@ I decided to use subsystems, so the main app's logic is inside the **/home** fol
 
 Notice that I added these folders to the project's root:
 
-**/customtags** - Well, stores the few custom tags used in this project (I made one to handle pagination)
+**/customtags** - It stores the few custom tags used in this project (I made one to handle pagination)
 
 **/lib** - Stores User Defined Functions and UDF libraries
 
