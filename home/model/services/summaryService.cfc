@@ -1,5 +1,4 @@
 /**
- * I am the summary service
  * All I do is query a remote webservice to get a summary for a string
  */
 component {

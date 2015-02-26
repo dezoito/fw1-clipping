@@ -39,8 +39,8 @@ body:after {
 /* line 32, ../sass/lightbox.sass */
 .lightbox a img {
   border: none;
-  width:100%; /* fcr (acrescentei para evitar distorcoes */
-  height:auto; /* fcr (acrescentei para evitar distorcoes */
+  width:100%; /* (edited) (acrescentei para evitar distorcoes */
+  height:auto; /* (edited) (acrescentei para evitar distorcoes */
 }
 
 /* line 35, ../sass/lightbox.sass */
@@ -48,8 +48,8 @@ body:after {
   position: relative;
   background-color: white;
   *zoom: 1;
-  /* width: 640px; */ /* fcr */
-  /* height: 480; */ /* fcr */
+  /* width: 640px; */ /* (edited) */
+  /* height: 480; */ /* (edited) */
   margin: 0 auto;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;

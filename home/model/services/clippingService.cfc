@@ -1,5 +1,9 @@
 /**
- * I am the clipping service.
+ * The Clipping Service
+ * - Validates data before saving (inser/Update)
+ * - returns a single instance of a clipping
+ * - returns a list of clipping articles
+ * - deletes an instance
  */
 component {
 
@@ -52,7 +56,7 @@ component {
                     var c = entityNew("clipping");
                 }
 
-            // run a bunch of functions on each string field and then insert or update
+            // use functions to "clean" each string field and then insert or update
             UDFs = application.UDFs
             c.setClipping_titulo(trim(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_titulo))));
             c.setClipping_texto(UDFs.safetext(arguments.rc.clipping_texto, true));
@@ -77,16 +81,11 @@ component {
      * deletes a single instance
      */
     public any function delete(numeric clipping_id) {
+        transaction {
             Clipping = entityLoadByPk("clipping", arguments.clipping_id);
             EntityDelete(Clipping);
-            ORMFlush(); // need to add this to make sure it deletes
-
-            // entityDelete wasn't working at all
-            // delete by using HQL and parameters
-            // hql = "delete from clipping where clipping_id = ?";
-            // queryParameters = [arguments.clipping_id];
-            // var r = ormExecuteQuery(hql, queryParameters);
-            // return true;
+            transactionCommit();
+        }
     }
 
     /**

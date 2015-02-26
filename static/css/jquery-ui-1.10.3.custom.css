@@ -847,7 +847,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
 	border: 1px solid #999999;
-	background: #1AACF5 url(../images/jqueryui/ui-bg_spotlight_75_1AACF5_600x600.png) 50% 50% repeat-x;/* fcr */
+	background: #1AACF5 url(../images/jqueryui/ui-bg_spotlight_75_1AACF5_600x600.png) 50% 50% repeat-x;/* (edited) */
 	font-weight: normal;
 	color: #212121;
 }

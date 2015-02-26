@@ -1,6 +1,6 @@
 <!--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 	PROJETO: FUNÇÃO - converte_chars_UTF8()
-	DATA: 06/01/2014			FCR
+	DATA: 06/01/2014
 
 	TEMPLATE: converte_chars_UTF8.cfm
 

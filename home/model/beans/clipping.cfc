@@ -9,17 +9,6 @@ component persistent="true" table="tbl_clipping" accessors="true" {
     property name="created" ormtype="timestamp";
     property name="clipping_incluido_por"  ormtype="string" length="100";
 
-    // you can create functions that are specific for each record
-    // see example below
-    // public function getAnswered() {
-    //     var hql = "
-    //         select a.id
-    //         from question q join q.answers a
-    //         where a.selectedanswer = 1 and q.id = ?
-    //     ";
-    //     var r = ormExecuteQuery(hql, [variables.id]);
-    //     return arrayLen(r) is 1;
-    // }
 
     /**
      * initialize this object, setting defaults if needed

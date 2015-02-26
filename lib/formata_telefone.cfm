@@ -1,21 +1,21 @@
 <!--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 	PROJETO: FUNÇÃO - formata_telefone()
-	DATA: 23/01/2009				FCR
-	
+	DATA: 23/01/2009
+
 	TEMPLATE: formata_telefone.cfm
-	
-	formata uma label, retirando acentuacao e 
+
+	formata uma label, retirando acentuacao e
 	substituindo espacos em branco por "_"
 
-	RECEBE: 
+	RECEBE:
 		TEXTO,
 
-	RETORNA: 
+	RETORNA:
 		string
-		
+
 	EXEMPLO:
-		
-	
+
+
 --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --->
 <cfscript>
 // formata numero de telefone para saída
