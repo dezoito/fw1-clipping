@@ -51,9 +51,9 @@ To run these tests, you must have CFSelenium and testBox installed on your serve
 ###
 
 ### References
-Aside from the Official Documentation, I learned a lot studying these resources:
+Aside from the Official Documentation, I am thankful to these authors and resources:
 
-[**Raymond Camdem's QBall Sample Application**](http://www.raymondcamden.com/2010/02/27/Framework-One-Sample-Application-QBall)
+[**Raymond Camdem's QBall Sample Application**](https://github.com/framework-one/fw1/tree/master/examples/qBall)
 
 [**Simon Bingham's Xindi CMS**](https://github.com/simonbingham/xindi)
 
