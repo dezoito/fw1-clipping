@@ -1,5 +1,5 @@
-component extends="org.corfield.framework" {
-
+component extends="framework.one" {
+//
     // ------------------------ APPLICATION SETTINGS ------------------------ //
     this.name = "clipping_app";
     this.sessionManagement = true;
@@ -50,6 +50,9 @@ component extends="org.corfield.framework" {
         usingSubsystems = true,
         defaultSubsystem = 'home', //default is 'home'
         siteWideLayoutSubsystem = 'common',
+
+        // changes for FW/1 3.0
+        diLocations = "./home/model/"
     }
 
     /**
@@ -80,19 +83,6 @@ component extends="org.corfield.framework" {
         application.datasource = this.datasource;
         application.test_datasource = this.test_datasource;
         application.recordsPerPage = 12 //pagination setting, used in all services and tests
-
-        var bf = new framework.ioc( "model" );
-        setBeanFactory( bf );
-
-        // if we are using subsystems, this is how you setup the BeanFactory
-        // for the "home" subsystem
-        // https://github.com/framework-one/fw1/wiki/Using-Subsystems#setting-bean-factories-with-setupsubsystem
-        var homeBf = new framework.ioc( "home/model" );
-        setBeanFactory( homeBf );
-        setSubsystemBeanFactory('home', homeBf);
-        variables.frameworkTrace( "<b>Just setup Bean Factory</b>", 'homeBf');
-
-
 
         // include UDF functions
         // the functions inside the CFC cann be referred by application.UDFs.functionName()
