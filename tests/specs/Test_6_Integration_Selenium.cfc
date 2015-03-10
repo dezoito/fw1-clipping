@@ -13,7 +13,7 @@ component extends="testbox.system.BaseSpec"{
     // executes before all suites
     function beforeAll(){
         // set url of Xindi installation
-        browserURL = "http://#CGI.HTTP_HOST#/fw1/clipping";
+        browserURL = application.testsBrowseURL;
         // set browser to be used for testing
         browserStartCommand = "*googlechrome";
         // browserStartCommand = "*firefox";
@@ -54,6 +54,9 @@ component extends="testbox.system.BaseSpec"{
 
         });
 
+        //----------------------------------------------------------------------
+        // Testing Article record on listing
+        //----------------------------------------------------------------------
         describe("Testing a single article", function(){
 
             it("Should NOT have tags in the preview description", function(){

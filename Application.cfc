@@ -87,6 +87,10 @@ component extends="framework.one" {
         // include UDF functions
         // the functions inside the CFC cann be referred by application.UDFs.functionName()
         application.UDFs = createObject("component", "lib.functions");
+
+        // settings used in tests
+        application.testsRootMapping = "/clipping/tests/specs";
+        application.testsBrowseURL = "http://" & CGI.HTTP_HOST & "/clipping";
     }
 
     /**

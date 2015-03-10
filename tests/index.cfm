@@ -2,7 +2,7 @@
 <!--- CPU Integration --->
 <cfparam name="url.cpu" default="false">
 <!--- SETUP THE ROOTS OF THE BROWSER RIGHT HERE --->
-<cfset rootMapping 	= "/fw1/clipping/tests/specs">
+<cfset rootMapping 	= application.testsRootMapping>
 <cfif directoryExists( rootMapping )>
 	<cfset rootPath = rootMapping>
 <cfelse>
