@@ -30,6 +30,8 @@ component extends="testbox.system.BaseSpec"{
 
         // create some random title string (we will use this to delete the article later)
         str_random_title = createUUID();
+        // text to be used in articles
+        str_default_text = repeatString("<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>Integer nec nulla ac justo viverra egestas.</p>", 10);
     }
 
     // executes after all suites
@@ -55,15 +57,89 @@ component extends="testbox.system.BaseSpec"{
         });
 
         //----------------------------------------------------------------------
-        // Testing Article record on listing
+        // Testing forms
+        //----------------------------------------------------------------------
+        describe("Testing the clipping form:", function(){
+
+            it("Clicking add an article link should load the form page", function(){
+                selenium.open(browserURL);
+                selenium.waitForPageToLoad(timeout);
+                selenium.click("link=Add an Article");
+                selenium.waitForPageToLoad(timeout);
+                expect( selenium.isElementPresent("id=f_clipping") ).toBe( true );
+                expect( selenium.isTextPresent("Published:") ).toBe( true );
+            });
+
+            it("The app must validade form entry (leave article TEXT empty)", function(){
+                selenium.open(browserURL & "?action=clipping.form");
+                selenium.waitForPageToLoad(timeout);
+                selenium.type("id=clipping_titulo", "test");
+                selenium.type("id=clipping_texto", "");
+                selenium.click("id=btn_save");
+                selenium.waitForPageToLoad(timeout);
+                // didn't fill all the required fields...should return with error
+                expect( selenium.isTextPresent("Your article could not be posted!") ).toBe( true );
+            });
+
+            it("The app must validade form entry (leave article only TITLE empty", function(){
+                selenium.open(browserURL & "?action=clipping.form");
+                selenium.waitForPageToLoad(timeout);
+                selenium.type("id=clipping_titulo", "");
+
+                // Have to use Javascript to add text to CKEditor
+                selenium.runScript("CKEDITOR.instances['clipping_texto'].setData('<p>test</p>');");
+                selenium.runScript("document.getElementById('f_clipping').onsubmit=function() {CKEDITOR.instances['clipping_texto'].updateElement();};");
+                selenium.click("id=btn_save");
+                selenium.waitForPageToLoad(timeout);
+                // didn't fill all the required fields...should return with error
+                expect( selenium.isTextPresent("Your article could not be posted!") ).toBe( true );
+            });
+
+            it("If all required fields are filled correctly, go back to main page and new article should be there", function(){
+
+                selenium.open(browserURL & "?action=clipping.form");
+                selenium.waitForPageToLoad(timeout);
+                selenium.type("id=clipping_titulo", str_random_title);
+                // Have to use Javascript to add text to CKEditor
+                selenium.runScript("CKEDITOR.instances['clipping_texto'].setData('#str_default_text#');");
+                selenium.runScript("document.getElementById('f_clipping').onsubmit=function() {CKEDITOR.instances['clipping_texto'].updateElement();};");
+                selenium.click("id=btn_save");
+                selenium.waitForPageToLoad(timeout);
+                // should NOT return with error
+                expect( selenium.isTextPresent("Your article could not be posted!") ).toBe( false );
+
+                // the random titled article should be on the list
+                expect( selenium.isTextPresent(str_random_title) ).toBe( true );
+            });
+
+            // testing form updates
+            it("Should load the form for an EXISTING article", function(){
+                selenium.open(browserUrl);
+                selenium.waitForPageToLoad(timeout);
+
+                // click on the article we've just created
+                selenium.click("link=" & str_random_title);
+                selenium.waitForPageToLoad(timeout);
+                expect( selenium.isElementPresent("id=f_clipping") ).toBe( true );
+                expect( selenium.isElementPresent("id=btn_delete") ).toBe( true );
+                // test to see if the "title" field has the current article's title
+                // created in beforeAll()
+                expect( selenium.getValue( "id=clipping_titulo" ) ).toBe( str_random_title );
+            });
+
+        });
+
+        //----------------------------------------------------------------------
+        // Testing Article record on main listing
         //----------------------------------------------------------------------
         describe("Testing a single article", function(){
 
             it("Should NOT have tags in the preview description", function(){
-                // use the page loaded on the previous test
                 // get contents from first article preview (use xpath to find it)
                 // note: if we were NOT using getText(), the actual xpath expression
                 // would be "xpath=(//div[@class='previewDiv'])[1]/text()"
+                selenium.open(browserUrl);
+                selenium.waitForPageToLoad(timeout);
                 printedPreview = selenium.getText( "xpath=(//div[@class='previewDiv'])[1]" );
                 expect( printedPreview ).toBe( application.UDFs.stripHTML(printedPreview) );
             });
@@ -125,78 +201,17 @@ component extends="testbox.system.BaseSpec"{
         });
 
         //----------------------------------------------------------------------
-        // Testing forms
+        // Deleting Test article
         //----------------------------------------------------------------------
-        describe("Testing the clipping form:", function(){
+        describe("Deleting an article", function(){
 
-            it("Clicking add an article link should load the form page", function(){
-                selenium.open(browserURL);
-                selenium.waitForPageToLoad(timeout);
-                selenium.click("link=Add an Article");
-                selenium.waitForPageToLoad(timeout);
-                expect( selenium.isElementPresent("id=f_clipping") ).toBe( true );
-                expect( selenium.isTextPresent("Published:") ).toBe( true );
-            });
-
-            it("The app must validade form entry (leave article TEXT empty)", function(){
-                selenium.open(browserURL & "?action=clipping.form");
-                selenium.waitForPageToLoad(timeout);
-                selenium.type("id=clipping_titulo", "test");
-                selenium.type("id=clipping_texto", "");
-                selenium.click("id=btn_save");
-                selenium.waitForPageToLoad(timeout);
-                // didn't fill all the required fields...should return with error
-                expect( selenium.isTextPresent("Your article could not be posted!") ).toBe( true );
-            });
-
-            it("The app must validade form entry (leave article only TITLE empty", function(){
-                selenium.open(browserURL & "?action=clipping.form");
-                selenium.waitForPageToLoad(timeout);
-                selenium.type("id=clipping_titulo", "");
-
-                // Have to use Javascript to add text to CKEditor
-                selenium.runScript("CKEDITOR.instances['clipping_texto'].setData('<p>test</p>');");
-                selenium.runScript("document.getElementById('f_clipping').onsubmit=function() {CKEDITOR.instances['clipping_texto'].updateElement();};");
-                selenium.click("id=btn_save");
-                selenium.waitForPageToLoad(timeout);
-                // didn't fill all the required fields...should return with error
-                expect( selenium.isTextPresent("Your article could not be posted!") ).toBe( true );
-            });
-
-            it("If all required fields are filled correctly, go back to main page and new article should be there", function(){
-
-                selenium.open(browserURL & "?action=clipping.form");
-                selenium.waitForPageToLoad(timeout);
-                selenium.type("id=clipping_titulo", str_random_title);
-                // Have to use Javascript to add text to CKEditor
-                selenium.runScript("CKEDITOR.instances['clipping_texto'].setData('<p>another test with a random title</p>');");
-                selenium.runScript("document.getElementById('f_clipping').onsubmit=function() {CKEDITOR.instances['clipping_texto'].updateElement();};");
-                selenium.click("id=btn_save");
-                selenium.waitForPageToLoad(timeout);
-                // should NOT return with error
-                expect( selenium.isTextPresent("Your article could not be posted!") ).toBe( false );
-
-                // the random titled article should be on the list
-                expect( selenium.isTextPresent(str_random_title) ).toBe( true );
-            });
-
-            // testing form updates
-            it("Should load the form for an EXISTING article", function(){
+            it("We should be able to delete the article we cretaed for this test", function(){
                 selenium.open(browserUrl);
                 selenium.waitForPageToLoad(timeout);
 
-                // click on the article we've just created
+                // click on the article we've created for tests
                 selenium.click("link=" & str_random_title);
                 selenium.waitForPageToLoad(timeout);
-                expect( selenium.isElementPresent("id=f_clipping") ).toBe( true );
-                expect( selenium.isElementPresent("id=btn_delete") ).toBe( true );
-                // test to see if the "title" field has the current article's title
-                // created in beforeAll()
-                expect( selenium.getValue( "id=clipping_titulo" ) ).toBe( str_random_title );
-            });
-
-            it("Should be able to delete an article", function(){
-                // uses window state from previous test
                 selenium.click("id=btn_delete");
                 selenium.click("css=button.confirm"); // clicks the sweet-alert "confirm" buttom
                 // selenium.open(browserURL); // needed when using firefox
@@ -204,6 +219,7 @@ component extends="testbox.system.BaseSpec"{
                 // the random titled article should NOT be on the list
                 expect( selenium.isTextPresent(str_random_title) ).toBe( false );
             });
+
         });
     }
 }
