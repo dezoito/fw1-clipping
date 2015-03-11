@@ -21,9 +21,9 @@ Notice that I added these folders to the project's root:
 **/tests** - Self explanatory
 
 
-### 2- Forms and Validation
+### 2- Forms and Validation Patterns
 The app uses the same view to display Create or Update forms,
-the same methods to validade and save objects and performs CSRF verification with _CSRFVerifyToken()_ to stop Cross Site Request Forgery.
+the same methods to validade and save objects, and performs CSRF verification with _CSRFVerifyToken()_ to stop Cross Site Request Forgery.
 
 Validation errors and messages are displayed next to their respect form fields.
 
