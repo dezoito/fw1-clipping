@@ -18,7 +18,7 @@ Notice that I added these folders to the project's root:
 
 **/static** - This is where I keep JS, CSS and Image files
 
-**/tests** - Self explanatory
+**/tests** - Self explanatory (But probably one of the most interesting parts in this project)
 
 
 ### 2- Forms and Validation Patterns
@@ -26,7 +26,6 @@ The app uses the same view to display Create or Update forms,
 the same methods to validade and save objects, and performs CSRF verification with _CSRFVerifyToken()_ to stop Cross Site Request Forgery.
 
 Validation errors and messages are displayed next to their respect form fields.
-
 
 
 ### 3- Use of UDF Libraries
@@ -37,7 +36,6 @@ that is saved in the **application** scope so they can be easily accessed anywhe
 ### 4- Accessing an External Service
 The app can display a summary of articles in a modal window (using the [flask-Summarizer App](https://github.com/dezoito/flask-Summarizer).
 I used this as a way to see how to make Ajax calls and also access an external service.
-
 
 
 ### 5- BDD Testing
