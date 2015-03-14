@@ -1,5 +1,5 @@
 component extends="framework.one" {
-//
+
     // ------------------------ APPLICATION SETTINGS ------------------------ //
     this.name = "clipping_app";
     this.sessionManagement = true;
@@ -21,9 +21,6 @@ component extends="framework.one" {
     this.customTagPaths = this.mappings["/root"] & "customtags"
     this.triggerDataMember = true // so we can access properties directly (no need for getters and setters)
 
-    // calculates relative path to application root
-    this.relativeRootPath =  contractpath(this.mappings["/root"] , true);
-
     /**
      * Overiding the default configs ACROSS ALL ENVS
      * See: https://github.com/framework-one/fw1/wiki/Developing-Applications-Manual#configuring-fw1-applications
@@ -34,7 +31,7 @@ component extends="framework.one" {
         reloadApplicationOnEveryRequest = true, //use this only in dev
         trace = false,
         // places where you don't want to load the framework
-        unhandledPaths = this.relativeRootPath & '/tests',
+        unhandledPaths = '/clipping/tests/',
 
         // cannot use below unless server understands rewriting
         // generateSES = true,
