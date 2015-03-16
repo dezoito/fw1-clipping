@@ -12,7 +12,7 @@
 	Uses Bootstrap CSS classes to display links.
 
 	IMPORTANT: the actual pagination of records is handled by the ORM
-	(MaxResults and Offset arguments)
+	(MaxResults and Offset arguments in the query)
 
 	ATTRIBUTES:
 	intNumberOfTotalItems:	QuerySet's total recordCount
@@ -103,34 +103,38 @@
 	<!---	ending		 --->
 	<!---   print page navigation     --->
 	<cfcase value="end">
-		<cfoutput>
-			<!--- Display the pagination buttons using bootstrap CSS classes --->
-			<ul class="pagination">
+		<cfif intNumberOfTotalItems gt intItemsPerPage>
 
-				<!--- Show a "back button" that link to the smallest number page - 1 --->
-				<cfif variables.boolShowBackButton>
-					<li><a href="?page=<cfoutput>#intMinLinkToShow-1#</cfoutput>">&lt;</a></li>
-				</cfif>
+			<cfoutput>
+				<!--- Display the pagination buttons using bootstrap CSS classes --->
+				<ul class="pagination">
 
-			  <!--- Loop through and create links to intPagesToLinkTo pages --->
-			  <cfloop from="#variables.intMinLinkToShow#" to="#variables.intMaxLinkToShow#" index="i">
+					<!--- Show a "back button" that link to the smallest number page - 1 --->
+					<cfif variables.boolShowBackButton>
+						<li><a href="?page=<cfoutput>#intMinLinkToShow-1#</cfoutput>">&lt;</a></li>
+					</cfif>
 
-		        <cfif intCurrentPage eq i>
-		          <li class="active"><a href="##">#i#</a></li>
-		        <cfelse>
-		          <li><a href="?page=#i#">#i#</a></li>
-		        </cfif>
+				  <!--- Loop through and create links to intPagesToLinkTo pages --->
+				  <cfloop from="#variables.intMinLinkToShow#" to="#variables.intMaxLinkToShow#" index="i">
 
-			  </cfloop>
+			        <cfif intCurrentPage eq i>
+			          <li class="active"><a href="##">#i#</a></li>
+			        <cfelse>
+			          <li><a href="?page=#i#">#i#</a></li>
+			        </cfif>
 
-			  <!--- Show a "forward button" that links to the largest number page + 1 --->
-			  <cfif variables.boolShowForwardButton>
-			      <li><a href="?page=<cfoutput>#intMaxLinkToShow+1#</cfoutput>">&gt;</a></li>
-			  </cfif>
+				  </cfloop>
 
-			</ul>
+				  <!--- Show a "forward button" that links to the largest number page + 1 --->
+				  <cfif variables.boolShowForwardButton>
+				      <li><a href="?page=<cfoutput>#intMaxLinkToShow+1#</cfoutput>">&gt;</a></li>
+				  </cfif>
 
-		</cfoutput>
+				</ul>
+
+			</cfoutput>
+
+		</cfif>
 	</cfcase><!---    /end     --->
 </cfswitch>
 
