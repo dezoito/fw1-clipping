@@ -78,7 +78,6 @@ component extends="framework.one" {
 
         // copy dsn names to application scope
         application.datasource = this.datasource;
-        application.test_datasource = this.test_datasource;
         application.recordsPerPage = 12 //pagination setting, used in all services and tests
 
         // include UDF functions
@@ -86,6 +85,7 @@ component extends="framework.one" {
         application.UDFs = createObject("component", "lib.functions");
 
         // settings used in tests
+        application.test_datasource = this.test_datasource;
         application.testsRootMapping = "/clipping/tests/specs";
         application.testsBrowseURL = "http://" & CGI.HTTP_HOST & "/clipping";
     }

@@ -61,13 +61,13 @@ component extends="testbox.system.BaseSpec"{
         //----------------------------------------------------------------------
         describe("Testing the clipping form:", function(){
 
-            it("Clicking add an article link should load the form page", function(){
+            it("Clicking -add an article- link should load the form page", function(){
                 selenium.open(browserURL);
                 selenium.waitForPageToLoad(timeout);
                 selenium.click("link=Add an Article");
                 selenium.waitForPageToLoad(timeout);
                 expect( selenium.isElementPresent("id=f_clipping") ).toBe( true );
-                expect( selenium.isTextPresent("Published:") ).toBe( true );
+                expect( selenium.isElementPresent("id=published") ).toBe( true );
             });
 
             it("The app must validade form entry (leave article TEXT empty)", function(){

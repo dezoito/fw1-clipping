@@ -77,7 +77,7 @@ http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-forms.php
     <div class="form-group">
         <label for="published" class="control-label col-sm-2">Published <span class="required">*</span></label>
         <div class="col-sm-3">
-            <input type="text" name="published"
+            <input type="text" name="published" id="published"
                 value="#dateFormat(rc.Clipping.getPublished(), "dd/mm/yyyy")#" size="10"
                 class="form-control datepicker">
                 <!---    display errors?    --->
