@@ -9,17 +9,13 @@ component accessors="true" {
     /**
      * init FW variables and methods so that they are available to this controller
      */
-    function init(fw) {
-        variables.fw = fw;
-        return this;
-    }
-
+    property framework;
 
     /**
      * action = main or action = main.default
      */
     function default( struct rc ) {
-        fw.frameworkTrace( "<b>Running query to list articles</b>");
+        framework.frameworkTrace( "<b>Running query to list articles</b>");
 
         // default starting record
         param name="rc.page" default="1";
@@ -43,6 +39,6 @@ component accessors="true" {
         param name="rc.name" default="String returned without a layout";
         setting showdebugoutput='false';  // no debug output
         // return the whole RC struct as JSON
-        variables.fw.renderData( contentType, rc);
+        framework.renderData( contentType, rc);
     }
 }

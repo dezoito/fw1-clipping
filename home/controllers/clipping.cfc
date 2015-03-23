@@ -10,10 +10,7 @@ component accessors="true" {
     /**
      * init FW variables and methods so that they are available to this controller
      */
-    function init(fw) {
-        variables.fw = fw;
-        return this;
-    }
+    property framework;
 
     /**
      * Generates clipping form
@@ -26,8 +23,8 @@ component accessors="true" {
             rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);
             // if a valid instance was not returned, return error.
             if(IsNull(rc.Clipping)) {
-                variables.fw.frameworkTrace( "<b>ORM query returned no Objects...redirecting to main</b>");
-                variables.fw.redirect("main");
+                framework.frameworkTrace( "<b>ORM query returned no Objects...redirecting to main</b>");
+                framework.redirect("main");
             }
         } else {
             // if we don't have a valid id, initialize object with the needed defaults
@@ -40,7 +37,7 @@ component accessors="true" {
      * saves an article
      */
     function save( struct rc ) {
-        variables.fw.frameworkTrace( "<b>Save Method on Clipping Controller</b>");
+        framework.frameworkTrace( "<b>Save Method on Clipping Controller</b>");
 
         // abort execution in case of CRSF attack (use UDF defined in lib.functions.cfc)
         application.UDFs.abortOnCSRFAttack( rc );
@@ -49,7 +46,7 @@ component accessors="true" {
         // if we have errors, go back to the form passing "ALL" rc values
         isValidForm = variables.clippingService.validate( rc );
         if(!isValidForm) {
-            variables.fw.redirect("clipping.form", "all");
+            framework.redirect("clipping.form", "all");
         }
         // ------------ end validation ---------
 
@@ -59,14 +56,14 @@ component accessors="true" {
 
         // since there's no clipping.save view, we have to redirect somewhere
         // (in this case, to the main list)
-        variables.fw.redirect("main.default");
+        framework.redirect("main.default");
     }
 
     /**
      * deletes an article - on POST requests only!!!
      */
     function delete( struct rc ) {
-        variables.fw.frameworkTrace( "<b>Delete Method on Clipping Controller</b>");
+        framework.frameworkTrace( "<b>Delete Method on Clipping Controller</b>");
 
         // abort execution in case of CRSF attack (use UDF defined in lib.functions.cfc)
         application.UDFs.abortOnCSRFAttack( rc );
@@ -75,7 +72,7 @@ component accessors="true" {
             // delete this object using the clippingService
             rc.Clipping = variables.clippingService.delete(rc.clipping_id);
         }
-        variables.fw.redirect("main.default");
+        framework.redirect("main.default");
     }
 
     /**
@@ -83,7 +80,7 @@ component accessors="true" {
      * It retuns only TEXT and does not use a layout
      */
     function summary( struct rc ) {
-        variables.fw.frameworkTrace( "<b>Summary Method on Clipping Controller</b>");
+        framework.frameworkTrace( "<b>Summary Method on Clipping Controller</b>");
         rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);
         rc.Summary = variables.summaryService.getSummary(rc.Clipping.getClipping_texto());
 
@@ -92,7 +89,7 @@ component accessors="true" {
         // (useful for debugging)
         var contentType = 'text';
         setting showdebugoutput='false';
-        variables.fw.renderData( contentType, rc.Summary );
+        framework.renderData( contentType, rc.Summary );
     }
 }
 
