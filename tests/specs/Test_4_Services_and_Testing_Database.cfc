@@ -26,7 +26,7 @@ component extends="testbox.system.BaseSpec"{
             rc.Clipping_texto = str_default_text;
             rc.Clipping_link = "http://localhost/";
             rc.Clipping_fonte = "This is the source for the article";
-            rc.Published = now(); // handle eurodates
+            rc.Published = dateformat(now(), "dd/mm/yyyy"); // handle eurodates
             Clipping = clippingService.save(rc);
         }
     }
@@ -159,9 +159,9 @@ component extends="testbox.system.BaseSpec"{
                 rc.Clipping_id = Clipping.getClipping_id();
                 rc.Clipping_titulo = "LEGLOCK";
                 rc.Clipping_texto = "REVERSE";
-                rc.Clipping_link = "ABRACADABRA";
+                rc.Clipping_link = "http://www.link.com";
                 rc.Clipping_fonte = ""; //this is OK
-                rc.Published = "01/01/2015"; // invalid empty date
+                rc.Published = "01/01/2015"; // valid date
 
                 // update the instance with new data
                 clippingService.save( rc );
@@ -183,15 +183,15 @@ component extends="testbox.system.BaseSpec"{
                 rc.Published = ""; // invalid empty date
 
                 // attempts validation with horrible data
-                isValidForm = clippingService.validate( rc );
+                invalidClipping = clippingService.save( rc );
 
-                expect( isValidForm ).toBe( false );
-                expect( rc.stErrors ).toBeTypeOf( "struct" );
-                expect( StructKeyExists(rc.stErrors, "clipping_titulo") ).toBe( true );
-                expect( StructKeyExists(rc.stErrors, "clipping_texto") ).toBe( true );
-                expect( StructKeyExists(rc.stErrors, "clipping_link") ).toBe( true );
-                expect( StructKeyExists(rc.stErrors, "clipping_fonte") ).toBe( false ); // empty is OK
-                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+                expect( invalidClipping.validate().isValid ).toBe( false );
+                expect( invalidClipping.validate().stErrors ).toBeTypeOf( "struct" );
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "clipping_titulo") ).toBe( true );
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "clipping_texto") ).toBe( true );
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "clipping_link") ).toBe( true );
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "clipping_fonte") ).toBe( false ); // empty is OK
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "Published") ).toBe( true );
             });
 
             it("Must only allow valid dates in Eurodate format", function(){
@@ -203,30 +203,29 @@ component extends="testbox.system.BaseSpec"{
                 rc.Clipping_fonte = "";
 
                 rc.Published = "01/01/2015"; // OK
-                isValidForm = clippingService.validate( rc );
-                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( false );// this one is ok
+                invalidClipping = clippingService.save( rc );
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "Published") ).toBe( false );// this one is ok
 
                 rc.Published = "30/02/2015"; // Invalid
-                isValidForm = clippingService.validate( rc );
-                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+                invalidClipping = clippingService.save( rc );
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "Published") ).toBe( true );
 
                 rc.Published = "01/15/2015"; // Invalid
-                isValidForm = clippingService.validate( rc );
-                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+                invalidClipping = clippingService.save( rc );
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "Published") ).toBe( true );
 
                 rc.Published = "01012015"; // Not Eurodate
-                isValidForm = clippingService.validate( rc );
-                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+                invalidClipping = clippingService.save( rc );
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "Published") ).toBe( true );
 
                 rc.Published = "2015/01/01"; // Not Eurodate
-                isValidForm = clippingService.validate( rc );
-                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+                invalidClipping = clippingService.save( rc );
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "Published") ).toBe( true );
 
                 rc.Published = "notevenadate"; // Not Eurodate
-                isValidForm = clippingService.validate( rc );
-                expect( StructKeyExists(rc.stErrors, "Published") ).toBe( true );
+                invalidClipping = clippingService.save( rc );
+                expect( StructKeyExists(invalidClipping.validate().stErrors, "Published") ).toBe( true );
             });
-
 
         });
 

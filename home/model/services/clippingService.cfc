@@ -29,13 +29,12 @@ component {
             c.setClipping_texto(UDFs.safetext(arguments.rc.clipping_texto, true));
             c.setClipping_link(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_link)));
             c.setClipping_fonte(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_fonte)));
+            c.setCreated(Now());
 
             // try to format only if the user submitted a valid eurodate
             if(isValid("eurodate", arguments.rc.Published)){
                 c.setPublished(dateformat(arguments.rc.Published, "dd/mm/yyyy")); // handle eurodates
             }
-
-            c.setCreated(Now());
 
             // commit changes IF data is valid
             if (c.validate().isValid) {
