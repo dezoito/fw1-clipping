@@ -42,21 +42,21 @@ component accessors="true" {
         // abort execution in case of CRSF attack (use UDF defined in lib.functions.cfc)
         application.UDFs.abortOnCSRFAttack( rc );
 
-        // ------------ field validation ---------
-        // if we have errors, go back to the form passing "ALL" rc values
-        isValidForm = variables.clippingService.validate( rc );
-        if(!isValidForm) {
-            framework.redirect("clipping.form", "all");
-        }
-        // ------------ end validation ---------
-
         // save (insert or update) this object
         // using the clippingService
         rc.Clipping = variables.clippingService.save(rc);
 
-        // since there's no clipping.save view, we have to redirect somewhere
-        // (in this case, to the main list)
-        framework.redirect("main.default");
+        // passed validation?
+        if(rc.Clipping.validate().isValid){
+            // since there's no clipping.save view, we have to redirect somewhere
+            // (in this case, to the main list)
+            framework.redirect("main.default");
+        } else {
+            // Invalid data!
+            // copy errors to struct in RC and display form again
+            rc.stErrors = rc.Clipping.validate().stErrors
+            framework.redirect("clipping.form", "all");
+        }
     }
 
     /**
