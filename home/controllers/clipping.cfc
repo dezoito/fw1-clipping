@@ -17,18 +17,26 @@ component accessors="true" {
      * either for a new one, or for an update
      */
     function form (struct rc){
-        param name="rc.clipping_id" default="0";
 
-        if(isValid("integer",rc.clipping_id) && val(rc.clipping_id)) {
-            rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);
-            // if a valid instance was not returned, return error.
-            if(IsNull(rc.Clipping)) {
-                framework.frameworkTrace( "<b>ORM query returned no Objects...redirecting to main</b>");
-                framework.redirect("main");
+        // Checks if the form is being displayed after a failed validation
+        // (i.e. if this function was called from the save() method in this controller)
+        // If NOT, instantiate a clipping entity to fill the form fields
+        // If so, just display the last data used when filling the forms
+        if(!structKeyExists(rc, "Clipping")){
+
+            param name="rc.clipping_id" default="0";
+
+            if(isValid("integer",rc.clipping_id) && val(rc.clipping_id)) {
+                rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);
+                // if a valid instance was not returned, return error.
+                if(IsNull(rc.Clipping)) {
+                    framework.frameworkTrace( "<b>ORM query returned no Objects...redirecting to main</b>");
+                    framework.redirect("main");
+                }
+            } else {
+                // if we don't have a valid id, initialize object with the needed defaults
+                rc.Clipping = entityNew("clipping");
             }
-        } else {
-            // if we don't have a valid id, initialize object with the needed defaults
-            rc.Clipping = entityNew("clipping");
         }
         // will render clipping.form view from here...
     }
