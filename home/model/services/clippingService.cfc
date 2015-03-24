@@ -17,24 +17,20 @@ component {
 
             //  Insert or Update?
             if(val(arguments.rc.clipping_id)){
-                    var c = entityLoadByPk("Clipping", arguments.rc.clipping_id);
-                } else {
-                    var c = entityNew("clipping");
-                }
-
-            // filter user input
-            // use functions to "clean" each string field and then insert or update
-            UDFs = application.UDFs
-            c.setClipping_titulo(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_titulo)));
-            c.setClipping_texto(UDFs.safetext(arguments.rc.clipping_texto, true));
-            c.setClipping_link(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_link)));
-            c.setClipping_fonte(UDFs.prepara_string(UDFs.stripHTML(arguments.rc.clipping_fonte)));
-            c.setCreated(Now());
-
-            // try to format only if the user submitted a valid eurodate
-            if(isValid("eurodate", arguments.rc.Published)){
-                c.setPublished(dateformat(arguments.rc.Published, "dd/mm/yyyy")); // handle eurodates
+                var c = entityLoadByPk("Clipping", arguments.rc.clipping_id);
+            } else {
+                var c = entityNew("clipping");
             }
+
+            // populate clipping component
+            c.setClipping_titulo(arguments.rc.clipping_titulo);
+            c.setClipping_texto(arguments.rc.clipping_texto);
+            c.setClipping_link(arguments.rc.clipping_link);
+            c.setClipping_fonte(arguments.rc.clipping_fonte);
+            c.setPublished(arguments.rc.Published);
+
+            // cleans and formats fields so they can be validated/saved
+            c.clean();
 
             // commit changes IF data is valid
             if (c.validate().isValid) {
