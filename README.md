@@ -27,6 +27,8 @@ the same methods to validade and save objects, and performs CSRF verification wi
 
 Validation errors and messages are displayed next to their respect form fields.
 
+Also, note how validation rules and attribute sanitizing code are kept within the model definition.
+
 
 ### 3- Use of UDF Libraries
 The _/lib_ folder contains _functions.cfc_, a library of commonly used functions
