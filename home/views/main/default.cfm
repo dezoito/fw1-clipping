@@ -23,7 +23,7 @@
             </div>
 
             <div>
-            <font class="text-muted small">#dateFormat(Clipping.getCreated(), "mmmm d, yyyy")# at #timeFormat(Clipping.getCreated(), "hh:mm")#</font>
+            <font class="text-muted small">#dateFormat(Clipping.getCreated(), "mmmm d, yyyy")# at #timeFormat(Clipping.getCreated(), "HH:mm")#</font>
             </div>
 
             <!---    shows a short preview of text (HTML tags removed)     --->
