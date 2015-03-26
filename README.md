@@ -1,7 +1,7 @@
-ColdFusion + FW/1 App to store news articles
+ColdFusion + FW/1 Example Application
 ---------------------------------------------------
 
-This application was created as an exercise to learn the awesome [FW/1 Framework](https://github.com/framework-one/fw1).
+This app can be used to store clippings and news articles and was created as an exercise to learn the awesome [FW/1 Framework](https://github.com/framework-one/fw1) (it has been tested with versions 3.0 and 3.1).
 
 Here's some of the topics I tried to cover:
 
@@ -36,7 +36,7 @@ that is saved in the **application** scope so they can be easily accessed anywhe
 
 
 ### 4- Accessing an External Service
-The app can display a summary of articles in a modal window (using the [flask-Summarizer App](https://github.com/dezoito/flask-Summarizer).
+The app can display a summary of articles in a modal window (using the [flask-Summarizer App](https://github.com/dezoito/flask-Summarizer)).
 I used this as a way to see how to make Ajax calls and also access an external service.
 
 
