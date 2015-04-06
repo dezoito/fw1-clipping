@@ -68,11 +68,7 @@ component extends="framework.one" {
        prod = { password = "supersecret" }
     }
 
-    /**
-    * This creates an instance of framework.ioc (DI/1) and tells it to look
-    * in the model folder for CFCs to manage, then it tells FW/1
-    * to use that as the “bean factory”.
-     */
+
     // ------------------------ CALLED WHEN APPLICATION STARTS ------------------------ //
     function setupApplication() {
 
@@ -94,8 +90,7 @@ component extends="framework.one" {
      * sets up session vars and logic when a session starts
      */
     function setupSession(){
-        // CSRF Token, unique for each user/session
-        session.csrftoken = CSRFGenerateToken();
+        // do something when the user session starts
     }
 
     /**
@@ -116,6 +111,8 @@ component extends="framework.one" {
      * Note that the request context itself is not available at this point!
      */
     function setupRequest() {
+        // CSRF Token, unique for each user/request
+        request.csrftoken = CSRFGenerateToken();
         // controller( 'security.checkAuthorization' );
     }
 
