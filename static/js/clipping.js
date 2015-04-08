@@ -20,7 +20,7 @@ function ajaxViewSummary(url, clipping_id){
   // if no id was passed, set it to zero
   clipping_id = typeof clipping_id !== 'undefined' ? clipping_id : 0;
 
-  // load form view
+  // load modal window
   $.get( url + '&clipping_id=' + clipping_id, function( data ) {
     $( ".modal-body" ).html( data );
     $( ".modal-title" ).html( "Article Summary" );
