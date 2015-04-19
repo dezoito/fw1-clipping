@@ -1,5 +1,5 @@
 ﻿/**
- * This is justa suite containing two very simple tests
+ * This is just a suite containing two very simple tests
  */
 component extends="testbox.system.BaseSpec"{
 
