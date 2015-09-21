@@ -12,7 +12,7 @@ component extends="testbox.system.BaseSpec"{
 
     // executes before all suites
     function beforeAll(){
-        // set url of Xindi installation
+        // set url of App installation
         browserURL = application.testsBrowseURL;
         // set browser to be used for testing
         browserStartCommand = "*googlechrome";
@@ -53,7 +53,6 @@ component extends="testbox.system.BaseSpec"{
                 selenium.waitForPageToLoad(timeout);
                 expect( selenium.getTitle() ).toBe( "Clippings" );
             });
-
         });
 
         //----------------------------------------------------------------------
