@@ -1,5 +1,5 @@
 /**
- * Tests the Applicatrion´s controllers
+ * Tests the Application´s controllers
  *
  */
 component extends="testbox.system.BaseSpec"{
@@ -59,11 +59,12 @@ component extends="testbox.system.BaseSpec"{
                 structClear(rc);
             });
 
-            it("The DEFAULT method returns an ORM object with a list of articles", function(){
+            it("The DEFAULT method returns an ORM object with an array of articles", function(){
                 // execute default method
                 mainController.default( rc );
                 expect( structKeyExists(rc, "qry_clipping")).toBeTrue();
-                expect( rc.qry_clipping.count).toBe( 20 );
+                expect( rc.qry_clipping.count).toBe( 20 ); // total records
+                expect( arrayLen(rc.qry_clipping.data) ).toBe( application.recordsPerPage ); //records per page
             });
 
         });
