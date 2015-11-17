@@ -15,7 +15,7 @@ component extends="testbox.system.BaseSpec"{
         // set url of App installation
         browserURL = application.testsBrowseURL;
         // set browser to be used for testing
-        browserStartCommand = "*googlechrome";
+        browserStartCommand = "*firefox";
         // browserStartCommand = "*firefox";
         // create a new instance of CFSelenium
         selenium = createobject("component", "CFSelenium.selenium").init();

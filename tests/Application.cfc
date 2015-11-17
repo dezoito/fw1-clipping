@@ -18,7 +18,7 @@ component extends="../Application"{
     };
 
 
-    this.triggerDataMember = true // so we can access properties directly (no need for getters and setters)
+    this.triggerDataMember = true; // so we can access properties directly (no need for getters and setters)
 
 
 }

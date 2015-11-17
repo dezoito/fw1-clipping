@@ -18,8 +18,8 @@ component extends="framework.one" {
     };
 
     this.mappings["/root"] = getDirectoryFromPath(getCurrentTemplatePath());
-    this.customTagPaths = this.mappings["/root"] & "customtags"
-    this.triggerDataMember = true // so we can access properties directly (no need for getters and setters)
+    this.customTagPaths = this.mappings["/root"] & "customtags";
+    this.triggerDataMember = true; // so we can access properties directly (no need for getters and setters)
 
     /**
      * Overiding the default configs ACROSS ALL ENVS
@@ -50,7 +50,7 @@ component extends="framework.one" {
 
         // changes for FW/1 3.0
         diLocations = "./home/model/"
-    }
+    };
 
     /**
     * customize framework variables based on environment
