@@ -3,7 +3,7 @@ ColdFusion + FW/1 Example Application
 
 This app can be used to store clippings and news articles and was created as an exercise to learn the awesome [FW/1 Framework](https://github.com/framework-one/fw1) (it has been tested with versions 3.0 and 3.1).
 
-For detailed explanations, checkout [this series of articles](http://dezoito.github.io/2015/03/26/fw1-example-app-released/) on the topics I tried to cover:
+For detailed explanations, checkout [this series of articles](http://dezoito.github.io/2015/03/26/fw1-example-app-released.html) on the topics I tried to cover:
 
 ### 1- Project Structure
 I decided to use subsystems, so the main app's logic is inside the **/home** folder (which is the default subsystem).
